@@ -1,0 +1,215 @@
+{
+  "id": 3,
+  "name": "Send GitHub notifications to Todoist project",
+  "active": true,
+  "nodes": [
+    {
+      "parameters": {
+        "triggerTimes": {
+          "item": [
+            {
+              "mode": "everyX",
+              "value": 30,
+              "unit": "minutes"
+            }
+          ]
+        }
+      },
+      "name": "Cron",
+      "type": "n8n-nodes-base.cron",
+      "position": [
+        440,
+        300
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {},
+      "name": "Start",
+      "type": "n8n-nodes-base.start",
+      "typeVersion": 1,
+      "position": [
+        440,
+        120
+      ],
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "project": "={{$node[\"Set\"].json[\"project_id\"]}}",
+        "content": "=[{{$json[$position][\"subject\"][\"title\"]}}]({{$json[$position][\"subject\"][\"url\"].replace(\"api.\",\"\").replace(\"/repos\",\"\").replace(\"/pulls\", \"/pull\")}})",
+        "options": {
+          "description": "={{$json[$position][\"reason\"]}}"
+        }
+      },
+      "name": "Todoist",
+      "type": "n8n-nodes-base.todoist",
+      "typeVersion": 1,
+      "position": [
+        1440,
+        160
+      ],
+      "retryOnFail": true,
+      "maxTries": 5,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "todoistOAuth2Api": {
+          "id": "6",
+          "name": "Todoist account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "=items[0].json.length > 0",
+              "value2": "={{true}}"
+            }
+          ]
+        }
+      },
+      "name": "IF",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        1240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "values": {
+          "number": [
+            {
+              "name": "project_id",
+              "value": 2290035515
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Set",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        640,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "const date = new Date(new Date().setMinutes(new Date().getMinutes() - 30)).toISOString()\nreturn [{json: {since: date}}];"
+      },
+      "name": "@30min ago",
+      "type": "n8n-nodes-base.function",
+      "position": [
+        840,
+        300
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "url": "https://api.github.com/notifications",
+        "options": {},
+        "headerParametersUi": {
+          "parameter": [
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:99.0) Gecko/20100101 Firefox/99.0"
+            }
+          ]
+        },
+        "queryParametersUi": {
+          "parameter": [
+            {
+              "name": "since",
+              "value": "={{$node[\"@30min ago\"].json[\"since\"]}}"
+            }
+          ]
+        }
+      },
+      "name": "@Get Notifications",
+      "type": "n8n-nodes-base.httpRequest",
+      "maxTries": 5,
+      "position": [
+        1040,
+        300
+      ],
+      "retryOnFail": true,
+      "typeVersion": 1,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "oAuth2Api": {
+          "id": "9",
+          "name": "GitHub OAuth2 Notifications Credential"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Cron": {
+      "main": [
+        [
+          {
+            "node": "Set",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF": {
+      "main": [
+        [
+          {
+            "node": "Todoist",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set": {
+      "main": [
+        [
+          {
+            "node": "@30min ago",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "@30min ago": {
+      "main": [
+        [
+          {
+            "node": "@Get Notifications",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "@Get Notifications": {
+      "main": [
+        [
+          {
+            "node": "IF",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2022-04-18T21:51:26.303Z",
+  "updatedAt": "2022-04-19T21:12:36.019Z",
+  "settings": {},
+  "staticData": null
+}
