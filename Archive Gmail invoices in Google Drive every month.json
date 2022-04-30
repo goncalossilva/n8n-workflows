@@ -1,0 +1,225 @@
+{
+  "id": 9,
+  "name": "Archive Gmail invoices in Google Drive every month",
+  "active": true,
+  "nodes": [
+    {
+      "parameters": {},
+      "name": "Start",
+      "type": "n8n-nodes-base.start",
+      "typeVersion": 1,
+      "position": [
+        440,
+        440
+      ],
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "triggerTimes": {
+          "item": [
+            {
+              "mode": "everyMonth",
+              "hour": 23,
+              "minute": 59
+            }
+          ]
+        }
+      },
+      "name": "Cron",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 1,
+      "position": [
+        440,
+        640
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "getAll",
+        "returnAll": true,
+        "additionalFields": {
+          "format": "resolved",
+          "q": "=after:{{$node[\"LastExecution\"].json[\"lastExecution\"]}} from:\"{{$node[\"SplitInBatches\"].json[\"fromQuery\"]}}\" filename:pdf filename:\"{{$node[\"SplitInBatches\"].json[\"fileNameIncludes\"]}}\""
+        }
+      },
+      "name": "Gmail",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 1,
+      "position": [
+        1240,
+        640
+      ],
+      "retryOnFail": true,
+      "maxTries": 5,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "12",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "binaryData": true,
+        "binaryPropertyName": "attachment",
+        "name": "={{$binary.attachment.fileName}}",
+        "parents": [
+          "={{$item(0).$node[\"SplitInBatches\"].json.folderId}}"
+        ],
+        "options": {}
+      },
+      "name": "Google Drive",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 1,
+      "position": [
+        1640,
+        640
+      ],
+      "retryOnFail": true,
+      "waitBetweenTries": 5000,
+      "maxTries": 5,
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "13",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "functionCode": "const fileNameIncludes = $item(0).$node[\"SplitInBatches\"].json.fileNameIncludes\nconst binary = {}\nbinary.attachment = Object.values(getBinaryData()).find(a => a.fileName.includes(fileNameIncludes))\nsetBinaryData(binary)\nreturn item"
+      },
+      "name": "FunctionItem",
+      "type": "n8n-nodes-base.functionItem",
+      "typeVersion": 1,
+      "position": [
+        1440,
+        640
+      ]
+    },
+    {
+      "parameters": {
+        "batchSize": 1,
+        "options": {}
+      },
+      "name": "SplitInBatches",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 1,
+      "position": [
+        1040,
+        640
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "const nodeData = getWorkflowStaticData('node');\nconst lastExecution = new Date(2004, 3, 1)\nif (nodeData.lastExecution) {\n  lastExecution.setTime(nodeData.lastExecution)\n}\nnodeData.lastExecution = new Date().getTime();\nreturn [\n  {\n    lastExecution: lastExecution.toISOString().split('T')[0]\n  }\n]"
+      },
+      "name": "LastExecution",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        640,
+        640
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "return [\n  {\n    json: {\n      fromQuery: \"aguasdoporto.pt@cgi.com\",\n      fileNameIncludes: \".DP.\",\n      folderId: \"1iaz3a5mRdu3MXfjs_qZ2nqBwCYKgMMOd\"\n    }\n  },\n  {\n    json: {\n      fromQuery: \"endesa.pt@cgi.com\",\n      fileNameIncludes: \".DP.\",\n      folderId: \"1A7-WIOfeTAJgJBEwaFqRPo9WoACmlpj9\"\n    }\n  },\n  {\n    json: {\n      fromQuery: \"fatura@telecom.pt\",\n      fileNameIncludes: \"FT \",\n      folderId: \"1zXfr50K8oIJKmB6xAKrU6G0gR_jBvh-L\"\n    }\n  },\n  {\n    json: {\n      fromQuery: \"contabilidade@osmope.pt\",\n      fileNameIncludes: \"Faturas\",\n      folderId: \"1hbPPVLen3GFEMZ3J6NmssIStQogT-B1v\"\n    }\n  }\n];"
+      },
+      "name": "MappingFunction",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        840,
+        640
+      ]
+    }
+  ],
+  "connections": {
+    "Cron": {
+      "main": [
+        [
+          {
+            "node": "LastExecution",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gmail": {
+      "main": [
+        [
+          {
+            "node": "FunctionItem",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FunctionItem": {
+      "main": [
+        [
+          {
+            "node": "Google Drive",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SplitInBatches": {
+      "main": [
+        [
+          {
+            "node": "Gmail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Drive": {
+      "main": [
+        [
+          {
+            "node": "SplitInBatches",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LastExecution": {
+      "main": [
+        [
+          {
+            "node": "MappingFunction",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MappingFunction": {
+      "main": [
+        [
+          {
+            "node": "SplitInBatches",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2022-04-25T21:40:28.865Z",
+  "updatedAt": "2022-04-30T22:33:15.788Z",
+  "settings": {},
+  "staticData": null
+}
