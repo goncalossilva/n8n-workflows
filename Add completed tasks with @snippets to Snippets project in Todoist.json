@@ -1,0 +1,151 @@
+{
+  "id": 1,
+  "name": "Add completed tasks with @snippets to Snippets project in Todoist",
+  "active": true,
+  "nodes": [
+    {
+      "parameters": {},
+      "name": "Start",
+      "type": "n8n-nodes-base.start",
+      "typeVersion": 1,
+      "position": [
+        -260,
+        80
+      ],
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "=9f23e5ee-11b7-4a9e-a976-8d9c721c7b3d",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        -260,
+        300
+      ],
+      "webhookId": "9f23e5ee-11b7-4a9e-a976-8d9c721c7b3d",
+      "notesInFlow": false
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{$node[\"Webhook\"].json[\"body\"][\"user_id\"]}}",
+              "value2": "={{$node[\"Set\"].json[\"user_id\"]}}"
+            },
+            {
+              "value1": "={{$node[\"Webhook\"].json[\"body\"][\"event_name\"]}}",
+              "value2": "={{\"item:completed\"}}"
+            },
+            {
+              "value1": "={{$node[\"Webhook\"].json[\"body\"][\"event_data\"][\"labels\"].includes($node[\"Set\"].json[\"label_id\"])}}",
+              "value2": "={{true}}"
+            }
+          ]
+        }
+      },
+      "name": "IF",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        140,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "project": 465383373,
+        "content": "={{$node[\"Webhook\"].json[\"body\"][\"event_data\"][\"content\"]}}",
+        "options": {
+          "description": "={{$node[\"Webhook\"].json[\"body\"][\"event_data\"][\"description\"]}}"
+        }
+      },
+      "name": "Todoist",
+      "type": "n8n-nodes-base.todoist",
+      "typeVersion": 1,
+      "position": [
+        340,
+        160
+      ],
+      "retryOnFail": true,
+      "maxTries": 5,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "todoistOAuth2Api": {
+          "id": "6",
+          "name": "Todoist account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "values": {
+          "number": [
+            {
+              "name": "user_id",
+              "value": 330121
+            },
+            {
+              "name": "label_id",
+              "value": 2149510547
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Set",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        -60,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Set",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF": {
+      "main": [
+        [
+          {
+            "node": "Todoist",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set": {
+      "main": [
+        [
+          {
+            "node": "IF",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2022-04-18T15:12:30.551Z",
+  "updatedAt": "2022-04-20T17:31:05.536Z",
+  "settings": {},
+  "staticData": null
+}
