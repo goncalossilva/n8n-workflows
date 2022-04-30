@@ -1,0 +1,98 @@
+{
+  "id": 6,
+  "name": "[WIP] Uncomplete subtasks with recurring parent task in Todoist",
+  "active": false,
+  "nodes": [
+    {
+      "parameters": {},
+      "name": "Start",
+      "type": "n8n-nodes-base.start",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ],
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "=9f23e5ee-11b7-4a9e-a976-8d9c721c7b3d",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        240,
+        500
+      ],
+      "webhookId": "9f23e5ee-11b7-4a9e-a976-8d9c721c7b3d",
+      "notesInFlow": false
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{$node[\"Webhook\"].json[\"body\"][\"event_name\"]}}",
+              "value2": "={{\"item:completed\"}}"
+            },
+            {
+              "value1": "={{$node[\"Webhook\"].json[\"body\"][\"event_data\"][\"due\"][\"is_recurring\"]}}",
+              "value2": "={{true}}"
+            }
+          ]
+        }
+      },
+      "name": "IF",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        440,
+        500
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "operation": "getAll",
+        "filters": {}
+      },
+      "name": "Todoist",
+      "type": "n8n-nodes-base.todoist",
+      "typeVersion": 1,
+      "position": [
+        620,
+        360
+      ],
+      "retryOnFail": true,
+      "maxTries": 5,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "todoistOAuth2Api": {
+          "id": "6",
+          "name": "Todoist account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "IF": {
+      "main": [
+        [
+          {
+            "node": "Todoist",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2022-04-19T21:28:25.720Z",
+  "updatedAt": "2022-04-20T10:54:47.458Z",
+  "settings": {},
+  "staticData": null
+}
