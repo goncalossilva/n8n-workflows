@@ -101,18 +101,6 @@
     },
     {
       "parameters": {
-        "functionCode": "const date = new Date(new Date().setMinutes(new Date().getMinutes() - 30)).toISOString()\nreturn [{json: {since: date}}];"
-      },
-      "name": "@30min ago",
-      "type": "n8n-nodes-base.function",
-      "position": [
-        840,
-        300
-      ],
-      "typeVersion": 1
-    },
-    {
-      "parameters": {
         "authentication": "oAuth2",
         "url": "https://api.github.com/notifications",
         "options": {},
@@ -149,6 +137,18 @@
           "name": "GitHub OAuth2 Notifications Credential"
         }
       }
+    },
+    {
+      "parameters": {
+        "functionCode": "const date = new Date(new Date().setMinutes(new Date().getMinutes() - 30)).toISOString()\nreturn [{json: {since: date}}];"
+      },
+      "name": "@30min ago",
+      "type": "n8n-nodes-base.function",
+      "position": [
+        840,
+        300
+      ],
+      "typeVersion": 1
     }
   ],
   "connections": {
@@ -185,17 +185,6 @@
         ]
       ]
     },
-    "@30min ago": {
-      "main": [
-        [
-          {
-            "node": "@Get Notifications",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "@Get Notifications": {
       "main": [
         [
@@ -206,10 +195,21 @@
           }
         ]
       ]
+    },
+    "@30min ago": {
+      "main": [
+        [
+          {
+            "node": "@Get Notifications",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2022-04-18T21:51:26.303Z",
-  "updatedAt": "2022-04-30T23:08:53.497Z",
+  "updatedAt": "2022-05-05T17:17:44.518Z",
   "settings": {},
   "staticData": null
 }
