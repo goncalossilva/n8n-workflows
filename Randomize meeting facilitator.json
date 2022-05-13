@@ -20,7 +20,7 @@
           "item": [
             {
               "mode": "everyWeek",
-              "hour": 15,
+              "hour": 16,
               "minute": 50
             }
           ]
@@ -97,7 +97,7 @@
     }
   },
   "createdAt": "2022-05-09T11:38:03.808Z",
-  "updatedAt": "2022-05-09T15:50:15.441Z",
+  "updatedAt": "2022-05-13T21:45:28.803Z",
   "settings": {},
   "staticData": null
 }
