@@ -85,14 +85,14 @@
       "parameters": {
         "resource": "playlist",
         "id": "={{$node[\"Set\"].json[\"discover_weekly_archive_id\"]}}",
-        "trackID": "={{$node[\"Spotify Read\"].json[\"track\"][\"id\"]}}",
+        "trackID": "={{$node[\"Function\"].json[\"uris\"]}}",
         "additionalFields": {}
       },
       "name": "Spotify Write",
       "type": "n8n-nodes-base.spotify",
       "typeVersion": 1,
       "position": [
-        1060,
+        1260,
         300
       ],
       "retryOnFail": true,
@@ -104,6 +104,18 @@
           "name": "Spotify account"
         }
       }
+    },
+    {
+      "parameters": {
+        "functionCode": "return [{\n  json: {\n    uris: items.map(i => i.json.track.uri).join(\",\")\n  }\n}]"
+      },
+      "name": "Function",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        1060,
+        300
+      ]
     }
   ],
   "connections": {
@@ -133,6 +145,17 @@
       "main": [
         [
           {
+            "node": "Function",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Function": {
+      "main": [
+        [
+          {
             "node": "Spotify Write",
             "type": "main",
             "index": 0
@@ -142,7 +165,7 @@
     }
   },
   "createdAt": "2022-04-19T17:51:25.134Z",
-  "updatedAt": "2022-04-19T21:04:17.453Z",
+  "updatedAt": "2022-05-14T01:13:54.987Z",
   "settings": {},
   "staticData": null
 }
