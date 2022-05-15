@@ -9,8 +9,7 @@
           "item": [
             {
               "mode": "everyX",
-              "value": 30,
-              "unit": "minutes"
+              "value": 1
             }
           ]
         }
@@ -65,7 +64,7 @@
         "conditions": {
           "boolean": [
             {
-              "value1": "=items[0].json.length > 0",
+              "value1": "={{$item(0).json.length > 0}}",
               "value2": "={{true}}"
             }
           ]
@@ -116,7 +115,7 @@
           "parameter": [
             {
               "name": "since",
-              "value": "={{$node[\"@30min ago\"].json[\"since\"]}}"
+              "value": "={{$node[\"@1hour ago\"].json[\"since\"]}}"
             }
           ]
         }
@@ -140,9 +139,9 @@
     },
     {
       "parameters": {
-        "functionCode": "const date = new Date(new Date().setMinutes(new Date().getMinutes() - 30)).toISOString()\nreturn [{json: {since: date}}];"
+        "functionCode": "const date = new Date(new Date().setHours(new Date().getHours() - 1)).toISOString()\nreturn [{json: {since: date}}]"
       },
-      "name": "@30min ago",
+      "name": "@1hour ago",
       "type": "n8n-nodes-base.function",
       "position": [
         840,
@@ -178,7 +177,7 @@
       "main": [
         [
           {
-            "node": "@30min ago",
+            "node": "@1hour ago",
             "type": "main",
             "index": 0
           }
@@ -196,7 +195,7 @@
         ]
       ]
     },
-    "@30min ago": {
+    "@1hour ago": {
       "main": [
         [
           {
@@ -209,7 +208,7 @@
     }
   },
   "createdAt": "2022-04-18T21:51:26.303Z",
-  "updatedAt": "2022-05-05T17:17:44.518Z",
+  "updatedAt": "2022-05-15T00:40:45.769Z",
   "settings": {},
   "staticData": null
 }
