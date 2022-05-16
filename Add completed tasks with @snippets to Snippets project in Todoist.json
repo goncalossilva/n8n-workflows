@@ -144,7 +144,9 @@
     }
   },
   "createdAt": "2022-04-18T15:12:30.551Z",
-  "updatedAt": "2022-05-13T21:39:53.510Z",
-  "settings": {},
+  "updatedAt": "2022-05-15T23:09:51.190Z",
+  "settings": {
+    "errorWorkflow": "12"
+  },
   "staticData": null
 }
