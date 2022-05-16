@@ -503,7 +503,9 @@
     }
   },
   "createdAt": "2022-04-30T23:03:42.843Z",
-  "updatedAt": "2022-05-05T17:18:18.854Z",
-  "settings": {},
+  "updatedAt": "2022-05-15T23:10:04.312Z",
+  "settings": {
+    "errorWorkflow": "12"
+  },
   "staticData": null
 }
