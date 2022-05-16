@@ -1,0 +1,69 @@
+{
+  "id": 12,
+  "name": "Send email on workflow error",
+  "active": false,
+  "nodes": [
+    {
+      "parameters": {},
+      "name": "Start",
+      "type": "n8n-nodes-base.start",
+      "position": [
+        440,
+        100
+      ],
+      "typeVersion": 1,
+      "disabled": true
+    },
+    {
+      "parameters": {},
+      "name": "Error Trigger",
+      "type": "n8n-nodes-base.errorTrigger",
+      "position": [
+        440,
+        300
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "subject": "=[n8n] Error:  {{$json[\"workflow\"][\"name\"]}}",
+        "message": "=Workflow: {{$json[\"workflow\"][\"name\"]}}\nError: {{$json[\"execution\"][\"error\"][\"message\"]}}\nLast node executed: {{$json[\"execution\"][\"lastNodeExecuted\"]}}\nExecution URL: {{$json[\"execution\"][\"url\"]}}\nStacktrace:\n{{$json[\"execution\"][\"error\"][\"stack\"]}}",
+        "toList": [
+          "goncalossilva+n8n@gmail.com"
+        ],
+        "additionalFields": {}
+      },
+      "name": "Gmail",
+      "type": "n8n-nodes-base.gmail",
+      "position": [
+        640,
+        300
+      ],
+      "typeVersion": 1,
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "12",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Gmail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2022-05-15T23:08:05.108Z",
+  "updatedAt": "2022-05-15T23:08:31.477Z",
+  "settings": {},
+  "staticData": null
+}
