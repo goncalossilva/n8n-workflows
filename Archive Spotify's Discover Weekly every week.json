@@ -165,7 +165,9 @@
     }
   },
   "createdAt": "2022-04-19T17:51:25.134Z",
-  "updatedAt": "2022-05-14T01:13:54.987Z",
-  "settings": {},
+  "updatedAt": "2022-05-15T23:09:06.561Z",
+  "settings": {
+    "errorWorkflow": "12"
+  },
   "staticData": null
 }
