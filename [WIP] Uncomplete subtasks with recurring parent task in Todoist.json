@@ -17,7 +17,7 @@
     {
       "parameters": {
         "httpMethod": "POST",
-        "path": "=9f23e5ee-11b7-4a9e-a976-8d9c721c7b3d",
+        "path": "2c1637a7-509a-471b-a3de-ba05ec646341",
         "options": {}
       },
       "name": "Webhook",
@@ -57,18 +57,41 @@
       "parameters": {
         "authentication": "oAuth2",
         "operation": "getAll",
-        "filters": {}
+        "limit": 20,
+        "filters": {
+          "parentId": "={{$node[\"Webhook\"].json[\"body\"][\"event_data\"][\"id\"]}}"
+        }
       },
       "name": "Todoist",
       "type": "n8n-nodes-base.todoist",
       "typeVersion": 1,
       "position": [
-        620,
+        640,
         360
       ],
       "retryOnFail": true,
       "maxTries": 5,
       "waitBetweenTries": 5000,
+      "credentials": {
+        "todoistOAuth2Api": {
+          "id": "6",
+          "name": "Todoist account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "operation": "reopen",
+        "taskId": "={{$node[\"Todoist\"].json[\"id\"]}}"
+      },
+      "name": "Todoist1",
+      "type": "n8n-nodes-base.todoist",
+      "typeVersion": 1,
+      "position": [
+        840,
+        360
+      ],
       "credentials": {
         "todoistOAuth2Api": {
           "id": "6",
@@ -88,10 +111,32 @@
           }
         ]
       ]
+    },
+    "Todoist": {
+      "main": [
+        [
+          {
+            "node": "Todoist1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "IF",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2022-04-19T21:28:25.720Z",
-  "updatedAt": "2022-05-15T23:10:36.737Z",
+  "updatedAt": "2022-06-04T22:42:01.344Z",
   "settings": {
     "errorWorkflow": "12"
   },
