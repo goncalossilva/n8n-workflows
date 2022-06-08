@@ -101,5 +101,6 @@
   "settings": {
     "errorWorkflow": "12"
   },
-  "staticData": null
+  "staticData": null,
+  "tags": []
 }
