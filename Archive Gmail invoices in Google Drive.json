@@ -218,13 +218,13 @@
     }
   },
   "createdAt": "2022-04-25T21:40:28.865Z",
-  "updatedAt": "2022-06-18T22:59:41.000Z",
+  "updatedAt": "2022-06-19T22:59:42.000Z",
   "settings": {
     "errorWorkflow": "12"
   },
   "staticData": {
     "node:LastExecution": {
-      "lastExecution": 1655593173915
+      "lastExecution": 1655679573669
     }
   },
   "tags": []
