@@ -20,7 +20,7 @@
           "item": [
             {
               "mode": "everyWeek",
-              "hour": 16,
+              "hour": 12,
               "minute": 50
             }
           ]
@@ -97,11 +97,11 @@
     }
   },
   "createdAt": "2022-05-09T11:38:03.808Z",
-  "updatedAt": "2022-07-04T17:12:40.118Z",
+  "updatedAt": "2022-07-31T22:56:57.206Z",
   "settings": {
     "errorWorkflow": "12"
   },
   "staticData": null,
-  "pinData": null,
+  "pinData": {},
   "tags": []
 }
