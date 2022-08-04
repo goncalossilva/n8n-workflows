@@ -20,7 +20,8 @@
         440,
         300
       ],
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "79afb20e-49e5-47a2-a643-b23fa04849d9"
     },
     {
       "parameters": {},
@@ -31,7 +32,8 @@
         440,
         120
       ],
-      "disabled": true
+      "disabled": true,
+      "id": "6c5c273d-46d3-4a86-9147-20d5170b8099"
     },
     {
       "parameters": {
@@ -57,7 +59,8 @@
           "id": "6",
           "name": "Todoist account"
         }
-      }
+      },
+      "id": "dc149d78-4278-4a52-b5bc-452948a82a52"
     },
     {
       "parameters": {
@@ -76,7 +79,8 @@
       "position": [
         1240,
         300
-      ]
+      ],
+      "id": "0b514fe5-073d-4848-b197-dfa635ef22b1"
     },
     {
       "parameters": {
@@ -96,7 +100,8 @@
       "position": [
         640,
         300
-      ]
+      ],
+      "id": "ff333814-b076-42f7-bc1c-529607f080fe"
     },
     {
       "parameters": {
@@ -135,7 +140,8 @@
           "id": "9",
           "name": "GitHub OAuth2 Notifications Credential"
         }
-      }
+      },
+      "id": "b3abb418-94df-47d6-b9fc-51643944e4be"
     },
     {
       "parameters": {
@@ -147,7 +153,8 @@
         840,
         300
       ],
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "810bed37-9c19-4220-846c-9bb171c88bfb"
     }
   ],
   "connections": {
