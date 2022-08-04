@@ -12,7 +12,8 @@
         100
       ],
       "typeVersion": 1,
-      "disabled": true
+      "disabled": true,
+      "id": "4ab1d9a2-bad6-4e38-85d0-61e20de12c0b"
     },
     {
       "parameters": {},
@@ -22,7 +23,8 @@
         440,
         300
       ],
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "1b122d2c-7ecc-4fc6-81b6-449796a11d67"
     },
     {
       "parameters": {
@@ -46,7 +48,8 @@
           "id": "12",
           "name": "Gmail account"
         }
-      }
+      },
+      "id": "9027ea96-647e-4090-b483-244edb7fd751"
     }
   ],
   "connections": {
