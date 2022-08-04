@@ -12,7 +12,8 @@
         440,
         440
       ],
-      "disabled": true
+      "disabled": true,
+      "id": "0b109670-3cfa-42e1-a17c-13eeea8bc75e"
     },
     {
       "parameters": {
@@ -31,7 +32,8 @@
       "position": [
         440,
         640
-      ]
+      ],
+      "id": "63e4a1a4-de91-4fb7-bb93-39afb45e6a45"
     },
     {
       "parameters": {
@@ -58,7 +60,8 @@
           "id": "12",
           "name": "Gmail account"
         }
-      }
+      },
+      "id": "6a3870db-91a9-4f41-889e-ff50c6c9e619"
     },
     {
       "parameters": {
@@ -86,7 +89,8 @@
           "id": "13",
           "name": "Google Drive account"
         }
-      }
+      },
+      "id": "290dfc61-db09-4ef3-989c-bc1db537f5a8"
     },
     {
       "parameters": {
@@ -98,7 +102,8 @@
       "position": [
         1440,
         640
-      ]
+      ],
+      "id": "d22072a7-0b29-4a78-abb2-02347b6cd9af"
     },
     {
       "parameters": {
@@ -111,7 +116,8 @@
       "position": [
         1040,
         640
-      ]
+      ],
+      "id": "bd155d2e-a5b4-48bc-9876-b8c4f57ea93d"
     },
     {
       "parameters": {
@@ -123,7 +129,8 @@
       "position": [
         640,
         640
-      ]
+      ],
+      "id": "5279f34e-8506-43aa-8ad7-da7d73ff84c0"
     },
     {
       "parameters": {
@@ -135,7 +142,8 @@
       "position": [
         840,
         640
-      ]
+      ],
+      "id": "4f912e30-c07a-40f1-a1d1-145e6b5b0941"
     }
   ],
   "connections": {
@@ -218,13 +226,13 @@
     }
   },
   "createdAt": "2022-04-25T21:40:28.865Z",
-  "updatedAt": "2022-08-03T22:59:36.000Z",
+  "updatedAt": "2022-08-04T23:00:02.000Z",
   "settings": {
     "errorWorkflow": "12"
   },
   "staticData": {
     "node:LastExecution": {
-      "lastExecution": 1659567574227
+      "lastExecution": 1659654001270
     }
   },
   "pinData": null,
