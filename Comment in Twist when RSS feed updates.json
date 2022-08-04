@@ -12,7 +12,8 @@
         260,
         100
       ],
-      "disabled": true
+      "disabled": true,
+      "id": "7a9c1b04-a4be-4f4f-acea-fd207e052421"
     },
     {
       "parameters": {
@@ -27,7 +28,8 @@
       ],
       "retryOnFail": true,
       "maxTries": 5,
-      "waitBetweenTries": 5000
+      "waitBetweenTries": 5000,
+      "id": "38b1cd34-9a4a-42f7-94cf-dc4bc7a6f05a"
     },
     {
       "parameters": {
@@ -48,7 +50,8 @@
       "position": [
         260,
         300
-      ]
+      ],
+      "id": "6beeb905-c2a6-4a37-a868-33c0f90e4d19"
     },
     {
       "parameters": {
@@ -60,7 +63,8 @@
       "position": [
         660,
         300
-      ]
+      ],
+      "id": "ed1f90cd-624b-48b7-8b80-a48ff8d8f55f"
     },
     {
       "parameters": {
@@ -83,7 +87,8 @@
           "id": "11",
           "name": "Twist account"
         }
-      }
+      },
+      "id": "3124fd7d-521d-411a-b726-dbad9c7401de"
     }
   ],
   "connections": {
