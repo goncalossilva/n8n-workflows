@@ -12,7 +12,8 @@
         240,
         300
       ],
-      "disabled": true
+      "disabled": true,
+      "id": "d2d53045-43d6-4ef4-8576-63b5c5be2578"
     },
     {
       "parameters": {
@@ -28,7 +29,8 @@
         500
       ],
       "webhookId": "9f23e5ee-11b7-4a9e-a976-8d9c721c7b3d",
-      "notesInFlow": false
+      "notesInFlow": false,
+      "id": "5b3ed84c-8fec-413d-b3ee-97764d1f747e"
     },
     {
       "parameters": {
@@ -51,7 +53,8 @@
       "position": [
         440,
         500
-      ]
+      ],
+      "id": "3238fc24-d96f-4eb3-be76-55e78a5b905c"
     },
     {
       "parameters": {
@@ -77,7 +80,8 @@
           "id": "6",
           "name": "Todoist account"
         }
-      }
+      },
+      "id": "88cfa63f-8e9c-44c4-81df-798db948401b"
     },
     {
       "parameters": {
@@ -97,7 +101,8 @@
           "id": "6",
           "name": "Todoist account"
         }
-      }
+      },
+      "id": "4e58d610-a349-41d1-be33-064623275fb6"
     }
   ],
   "connections": {
