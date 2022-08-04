@@ -12,7 +12,8 @@
         460,
         100
       ],
-      "disabled": true
+      "disabled": true,
+      "id": "1e389185-fe86-48a6-b94d-f66d88b7cc7f"
     },
     {
       "parameters": {
@@ -31,7 +32,8 @@
       "position": [
         460,
         300
-      ]
+      ],
+      "id": "746e1995-8e50-4940-92e8-2e359f3988bb"
     },
     {
       "parameters": {
@@ -55,7 +57,8 @@
       "position": [
         660,
         300
-      ]
+      ],
+      "id": "a4184e4b-21ad-4ba5-a197-eedc9cd701d0"
     },
     {
       "parameters": {
@@ -79,7 +82,8 @@
           "id": "10",
           "name": "Spotify account"
         }
-      }
+      },
+      "id": "74b62fd0-31b3-49f3-ada7-0a8a5d3b3da1"
     },
     {
       "parameters": {
@@ -103,7 +107,8 @@
           "id": "10",
           "name": "Spotify account"
         }
-      }
+      },
+      "id": "aca0e4b6-8ddf-4960-a0a3-8a5b8db014c8"
     },
     {
       "parameters": {
@@ -115,7 +120,8 @@
       "position": [
         1060,
         300
-      ]
+      ],
+      "id": "cfe0d71b-1969-43aa-a501-1b3d16dfa365"
     }
   ],
   "connections": {
