@@ -12,7 +12,8 @@
         460,
         100
       ],
-      "disabled": true
+      "disabled": true,
+      "id": "5802b622-419f-4b23-b1ff-7d221b603c59"
     },
     {
       "parameters": {
@@ -32,7 +33,8 @@
       "position": [
         460,
         300
-      ]
+      ],
+      "id": "b884ee01-ebaa-4081-842f-83c4495e0354"
     },
     {
       "parameters": {
@@ -44,7 +46,8 @@
       "position": [
         660,
         300
-      ]
+      ],
+      "id": "04f2d729-02a6-4cdc-b1ad-a6d9db741ce1"
     },
     {
       "parameters": {
@@ -69,7 +72,8 @@
           "id": "6",
           "name": "Todoist account"
         }
-      }
+      },
+      "id": "55c4c219-3215-4d9a-a6b6-040fae57762d"
     }
   ],
   "connections": {
