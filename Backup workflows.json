@@ -12,7 +12,8 @@
         -1260,
         440
       ],
-      "disabled": true
+      "disabled": true,
+      "id": "f7201330-6cc4-488f-b99d-8a3e8f01802e"
     },
     {
       "parameters": {},
@@ -22,7 +23,8 @@
         540,
         620
       ],
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "bdd20f2d-b124-43a6-80ac-e6cf189a0219"
     },
     {
       "parameters": {
@@ -50,7 +52,8 @@
         940,
         620
       ],
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "0761e077-d071-4d00-ae2f-d2bba2f37c90"
     },
     {
       "parameters": {},
@@ -60,7 +63,8 @@
         1140,
         420
       ],
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "0654af3e-2f01-469c-87c7-1fb7bf0d35f0"
     },
     {
       "parameters": {},
@@ -70,7 +74,8 @@
         1140,
         620
       ],
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "6ae1eecf-c498-4c51-9073-a7f37294ba2d"
     },
     {
       "parameters": {},
@@ -80,7 +85,8 @@
         1140,
         820
       ],
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "9cd31fe3-c062-4487-bca3-bd9ce61b80c5"
     },
     {
       "parameters": {
@@ -105,7 +111,8 @@
           "id": "3",
           "name": "Github account"
         }
-      }
+      },
+      "id": "298c81d2-b534-4f95-905f-c775bcace24a"
     },
     {
       "parameters": {
@@ -129,7 +136,8 @@
           "id": "3",
           "name": "Github account"
         }
-      }
+      },
+      "id": "3e32318d-2b7c-47ac-bd91-f37e1dce1d0d"
     },
     {
       "parameters": {
@@ -141,7 +149,8 @@
         740,
         620
       ],
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "ff2913b0-8056-45aa-8327-d4f05addec91"
     },
     {
       "parameters": {
@@ -153,7 +162,8 @@
         -60,
         640
       ],
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "fa7e68f8-b331-4b94-aa0b-583884e1c6c8"
     },
     {
       "parameters": {
@@ -166,7 +176,8 @@
         140,
         640
       ],
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "5f3e785d-b39f-4860-815d-5c2d5e4aa8f4"
     },
     {
       "parameters": {
@@ -197,7 +208,8 @@
         -1060,
         640
       ],
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "16c1ef96-2521-4c9e-8d7a-7c723522a42d"
     },
     {
       "parameters": {
@@ -209,7 +221,8 @@
         -860,
         640
       ],
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "1324831b-7380-47ca-adc4-63d8844c1730"
     },
     {
       "parameters": {
@@ -221,7 +234,8 @@
         -660,
         640
       ],
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "95dd6e12-3a28-438b-acb7-312f887d944a"
     },
     {
       "parameters": {
@@ -233,7 +247,8 @@
         -460,
         640
       ],
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "9c6d8712-22a1-44d5-ab2c-08445b78cc9a"
     },
     {
       "parameters": {
@@ -246,7 +261,8 @@
         -260,
         640
       ],
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "e8c31211-2476-47bb-a52d-1752c7bb1cf2"
     },
     {
       "parameters": {
@@ -273,7 +289,8 @@
           "name": "Github account"
         }
       },
-      "continueOnFail": true
+      "continueOnFail": true,
+      "id": "e4fc1254-e792-47d2-9fe1-26871479bb65"
     },
     {
       "parameters": {
@@ -291,7 +308,8 @@
         -1260,
         640
       ],
-      "typeVersion": 1
+      "typeVersion": 1,
+      "id": "8450efd7-89d8-4f54-9a08-59bf84e897f1"
     }
   ],
   "connections": {
