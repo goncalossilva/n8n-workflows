@@ -226,13 +226,13 @@
     }
   },
   "createdAt": "2022-04-25T21:40:28.865Z",
-  "updatedAt": "2022-09-01T22:59:48.000Z",
+  "updatedAt": "2022-09-02T22:59:16.000Z",
   "settings": {
     "errorWorkflow": "12"
   },
   "staticData": {
     "node:LastExecution": {
-      "lastExecution": 1662073187572
+      "lastExecution": 1662159555325
     }
   },
   "pinData": null,
