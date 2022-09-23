@@ -1,0 +1,111 @@
+{
+  "id": 11,
+  "name": "Randomize meeting facilitator for first shift",
+  "active": true,
+  "nodes": [
+    {
+      "parameters": {},
+      "name": "Start",
+      "type": "n8n-nodes-base.start",
+      "typeVersion": 1,
+      "position": [
+        460,
+        100
+      ],
+      "id": "5802b622-419f-4b23-b1ff-7d221b603c59",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "triggerTimes": {
+          "item": [
+            {
+              "mode": "everyWeek",
+              "hour": 9,
+              "minute": 50
+            }
+          ]
+        }
+      },
+      "name": "Cron",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "id": "b884ee01-ebaa-4081-842f-83c4495e0354"
+    },
+    {
+      "parameters": {
+        "functionCode": "const facilitators = [\"Andrew\", \"Kahlil\", \"Lefteris\", \"Thomas\", \"Modasser\"]\nitems[0].json = facilitators\n  .map(value => ({ value, sort: Math.random() }))\n  .sort((a, b) => a.sort - b.sort)\n  .map(({ value }) => value)\nreturn items"
+      },
+      "name": "Function",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        660,
+        300
+      ],
+      "id": "04f2d729-02a6-4cdc-b1ad-a6d9db741ce1"
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "project": 2243283280,
+        "content": "🗣 Randomized meeting facilitator",
+        "options": {
+          "description": "={{$json.join(\", \")}}",
+          "dueString": "today",
+          "section": 19406458
+        }
+      },
+      "name": "Todoist",
+      "type": "n8n-nodes-base.todoist",
+      "typeVersion": 1,
+      "position": [
+        860,
+        300
+      ],
+      "id": "55c4c219-3215-4d9a-a6b6-040fae57762d",
+      "credentials": {
+        "todoistOAuth2Api": {
+          "id": "6",
+          "name": "Todoist account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Cron": {
+      "main": [
+        [
+          {
+            "node": "Function",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Function": {
+      "main": [
+        [
+          {
+            "node": "Todoist",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2022-05-09T11:38:03.808Z",
+  "updatedAt": "2022-09-23T17:10:39.343Z",
+  "settings": {
+    "errorWorkflow": "12"
+  },
+  "staticData": null,
+  "pinData": {},
+  "tags": []
+}
