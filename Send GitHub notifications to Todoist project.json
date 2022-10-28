@@ -1,4 +1,6 @@
 {
+  "createdAt": "2022-04-18T21:51:26.303Z",
+  "updatedAt": "2022-05-15T23:08:53.881Z",
   "id": 3,
   "name": "Send GitHub notifications to Todoist project",
   "active": true,
@@ -214,8 +216,6 @@
       ]
     }
   },
-  "createdAt": "2022-04-18T21:51:26.303Z",
-  "updatedAt": "2022-05-15T23:08:53.881Z",
   "settings": {
     "errorWorkflow": "12"
   },
