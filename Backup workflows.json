@@ -1,4 +1,6 @@
 {
+  "createdAt": "2022-04-30T23:03:42.843Z",
+  "updatedAt": "2022-05-15T23:10:04.312Z",
   "id": 10,
   "name": "Backup workflows",
   "active": true,
@@ -520,8 +522,6 @@
       ]
     }
   },
-  "createdAt": "2022-04-30T23:03:42.843Z",
-  "updatedAt": "2022-05-15T23:10:04.312Z",
   "settings": {
     "errorWorkflow": "12"
   },
