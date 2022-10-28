@@ -1,4 +1,6 @@
 {
+  "createdAt": "2022-09-23T17:10:47.320Z",
+  "updatedAt": "2022-09-23T17:11:36.288Z",
   "id": 13,
   "name": "Randomize meeting facilitator for second shift",
   "active": true,
@@ -100,8 +102,6 @@
       ]
     }
   },
-  "createdAt": "2022-09-23T17:10:47.320Z",
-  "updatedAt": "2022-09-23T17:11:36.288Z",
   "settings": {
     "errorWorkflow": "12"
   },
