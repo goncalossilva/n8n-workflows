@@ -1,4 +1,6 @@
 {
+  "createdAt": "2022-04-19T18:40:40.596Z",
+  "updatedAt": "2022-05-15T23:10:31.430Z",
   "id": 5,
   "name": "Comment in Twist when RSS feed updates",
   "active": false,
@@ -126,8 +128,6 @@
       ]
     }
   },
-  "createdAt": "2022-04-19T18:40:40.596Z",
-  "updatedAt": "2022-05-15T23:10:31.430Z",
   "settings": {
     "errorWorkflow": "12"
   },
