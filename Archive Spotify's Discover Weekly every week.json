@@ -1,4 +1,6 @@
 {
+  "createdAt": "2022-04-19T17:51:25.134Z",
+  "updatedAt": "2022-05-15T23:09:06.561Z",
   "id": 4,
   "name": "Archive Spotify's Discover Weekly every week",
   "active": true,
@@ -170,8 +172,6 @@
       ]
     }
   },
-  "createdAt": "2022-04-19T17:51:25.134Z",
-  "updatedAt": "2022-05-15T23:09:06.561Z",
   "settings": {
     "errorWorkflow": "12"
   },
