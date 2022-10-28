@@ -1,4 +1,6 @@
 {
+  "createdAt": "2022-04-19T21:28:25.720Z",
+  "updatedAt": "2022-06-04T22:42:01.344Z",
   "id": 6,
   "name": "[WIP] Uncomplete subtasks with recurring parent task in Todoist",
   "active": false,
@@ -140,8 +142,6 @@
       ]
     }
   },
-  "createdAt": "2022-04-19T21:28:25.720Z",
-  "updatedAt": "2022-06-04T22:42:01.344Z",
   "settings": {
     "errorWorkflow": "12"
   },
