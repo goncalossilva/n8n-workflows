@@ -1,0 +1,151 @@
+{
+  "createdAt": "2022-04-19T21:28:25.720Z",
+  "updatedAt": "2022-06-04T22:42:01.344Z",
+  "id": 6,
+  "name": "[WIP] Uncomplete subtasks with recurring parent task in Todoist",
+  "active": false,
+  "nodes": [
+    {
+      "parameters": {},
+      "name": "Start",
+      "type": "n8n-nodes-base.start",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ],
+      "disabled": true,
+      "id": "d2d53045-43d6-4ef4-8576-63b5c5be2578"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "2c1637a7-509a-471b-a3de-ba05ec646341",
+        "options": {}
+      },
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        240,
+        500
+      ],
+      "webhookId": "9f23e5ee-11b7-4a9e-a976-8d9c721c7b3d",
+      "notesInFlow": false,
+      "id": "5b3ed84c-8fec-413d-b3ee-97764d1f747e"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{$node[\"Webhook\"].json[\"body\"][\"event_name\"]}}",
+              "value2": "={{\"item:completed\"}}"
+            },
+            {
+              "value1": "={{$node[\"Webhook\"].json[\"body\"][\"event_data\"][\"due\"][\"is_recurring\"]}}",
+              "value2": "={{true}}"
+            }
+          ]
+        }
+      },
+      "name": "IF",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        440,
+        500
+      ],
+      "id": "3238fc24-d96f-4eb3-be76-55e78a5b905c"
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "operation": "getAll",
+        "limit": 20,
+        "filters": {
+          "parentId": "={{$node[\"Webhook\"].json[\"body\"][\"event_data\"][\"id\"]}}"
+        }
+      },
+      "name": "Todoist",
+      "type": "n8n-nodes-base.todoist",
+      "typeVersion": 1,
+      "position": [
+        640,
+        360
+      ],
+      "retryOnFail": true,
+      "maxTries": 5,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "todoistOAuth2Api": {
+          "id": "6",
+          "name": "Todoist account"
+        }
+      },
+      "id": "88cfa63f-8e9c-44c4-81df-798db948401b"
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "operation": "reopen",
+        "taskId": "={{$node[\"Todoist\"].json[\"id\"]}}"
+      },
+      "name": "Todoist1",
+      "type": "n8n-nodes-base.todoist",
+      "typeVersion": 1,
+      "position": [
+        840,
+        360
+      ],
+      "credentials": {
+        "todoistOAuth2Api": {
+          "id": "6",
+          "name": "Todoist account"
+        }
+      },
+      "id": "4e58d610-a349-41d1-be33-064623275fb6"
+    }
+  ],
+  "connections": {
+    "IF": {
+      "main": [
+        [
+          {
+            "node": "Todoist",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Todoist": {
+      "main": [
+        [
+          {
+            "node": "Todoist1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "IF",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "errorWorkflow": "12"
+  },
+  "staticData": null,
+  "pinData": null,
+  "tags": []
+}
