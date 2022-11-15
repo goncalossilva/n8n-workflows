@@ -1,6 +1,6 @@
 {
   "createdAt": "2022-05-09T11:38:03.808Z",
-  "updatedAt": "2022-10-31T00:02:48.563Z",
+  "updatedAt": "2022-11-14T11:27:03.777Z",
   "id": 11,
   "name": "Randomize meeting facilitator for Backend Weekly First Shift",
   "active": true,
@@ -23,7 +23,7 @@
           "item": [
             {
               "mode": "everyWeek",
-              "hour": 9,
+              "hour": 8,
               "minute": 50
             }
           ]
@@ -108,5 +108,5 @@
   "staticData": null,
   "pinData": {},
   "tags": [],
-  "hash": "9693c44524bf5348840848c61aca2e39"
+  "hash": "0d249c56008936d60af70e0a0c672d04"
 }
