@@ -1,6 +1,6 @@
 {
   "createdAt": "2022-05-09T11:38:03.808Z",
-  "updatedAt": "2022-11-14T11:27:03.777Z",
+  "updatedAt": "2022-11-21T10:20:13.892Z",
   "id": 11,
   "name": "Randomize meeting facilitator for Backend Weekly First Shift",
   "active": true,
@@ -40,7 +40,7 @@
     },
     {
       "parameters": {
-        "functionCode": "const facilitators = [\"Andrew\", \"Kahlil\", \"Lefteris\", \"Thomas\", \"Modasser\"]\nitems[0].json = facilitators\n  .map(value => ({ value, sort: Math.random() }))\n  .sort((a, b) => a.sort - b.sort)\n  .map(({ value }) => value)\nreturn items"
+        "functionCode": "const facilitators = [\"Gonçalo\", \"Janusz\", \"Lefteris\", \"Modasser\", \"Thomas\", \"Kahlil\"]\nitems[0].json = facilitators\n  .map(value => ({ value, sort: Math.random() }))\n  .sort((a, b) => a.sort - b.sort)\n  .map(({ value }) => value)\nreturn items"
       },
       "name": "Function",
       "type": "n8n-nodes-base.function",
@@ -108,5 +108,5 @@
   "staticData": null,
   "pinData": {},
   "tags": [],
-  "hash": "0d249c56008936d60af70e0a0c672d04"
+  "hash": "ecaa766224509f14fa22f5d5bf915c86"
 }
