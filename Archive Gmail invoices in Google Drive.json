@@ -1,6 +1,6 @@
 {
   "createdAt": "2022-04-25T21:40:28.865Z",
-  "updatedAt": "2022-11-29T00:00:24.000Z",
+  "updatedAt": "2022-11-30T00:00:01.000Z",
   "id": 9,
   "name": "Archive Gmail invoices in Google Drive",
   "active": true,
@@ -232,10 +232,10 @@
   },
   "staticData": {
     "node:LastExecution": {
-      "lastExecution": 1669680001483
+      "lastExecution": 1669766399844
     }
   },
   "pinData": null,
   "tags": [],
-  "hash": "5f0a8a8d6a4d19dec3bd09b3bb518cc4"
+  "hash": "e0507699fbe3f96370a57749c5a8d479"
 }
