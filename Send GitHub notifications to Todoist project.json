@@ -1,6 +1,6 @@
 {
   "createdAt": "2022-04-18T21:51:26.303Z",
-  "updatedAt": "2022-05-15T23:08:53.881Z",
+  "updatedAt": "2022-12-08T08:00:38.000Z",
   "id": 3,
   "name": "Send GitHub notifications to Todoist project",
   "active": true,
@@ -220,7 +220,8 @@
     "errorWorkflow": "12"
   },
   "staticData": null,
+  "dataLoaded": true,
   "pinData": null,
-  "tags": [],
-  "hash": "77bf1b6f0d4183f4080b39d56106ac06"
+  "versionId": "db850acd-2a52-4152-be00-99567e429e53",
+  "tags": []
 }
