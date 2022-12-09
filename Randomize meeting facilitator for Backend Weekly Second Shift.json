@@ -106,7 +106,8 @@
     "errorWorkflow": "12"
   },
   "staticData": null,
+  "dataLoaded": false,
   "pinData": {},
-  "tags": [],
-  "hash": "6f332d3f8d6187a0ff2b695119d7412f"
+  "versionId": "d2559484-2fd0-4a49-a2bf-5d6d30e1bc1b",
+  "tags": []
 }
