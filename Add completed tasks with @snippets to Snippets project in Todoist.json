@@ -1,6 +1,6 @@
 {
   "createdAt": "2022-04-18T15:12:30.551Z",
-  "updatedAt": "2022-12-08T08:55:25.000Z",
+  "updatedAt": "2022-12-22T07:07:15.000Z",
   "id": 1,
   "name": "Add completed tasks with @snippets to Snippets project in Todoist",
   "active": true,
@@ -157,5 +157,6 @@
   "dataLoaded": true,
   "pinData": null,
   "versionId": "390b19f0-e49b-4113-b650-e37c7174be6e",
+  "triggerCount": 1,
   "tags": []
 }
