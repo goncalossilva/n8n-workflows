@@ -1,6 +1,6 @@
 {
   "createdAt": "2022-04-19T17:51:25.134Z",
-  "updatedAt": "2022-12-12T07:01:04.000Z",
+  "updatedAt": "2022-12-22T07:07:15.000Z",
   "id": 4,
   "name": "Archive Spotify's Discover Weekly",
   "active": true,
@@ -179,5 +179,6 @@
   "dataLoaded": true,
   "pinData": {},
   "versionId": "84ef1940-1cbd-4ae1-b8f4-be2f905c120c",
+  "triggerCount": 1,
   "tags": []
 }
