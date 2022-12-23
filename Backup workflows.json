@@ -1,6 +1,6 @@
 {
   "createdAt": "2022-04-30T23:03:42.843Z",
-  "updatedAt": "2022-12-09T00:00:42.000Z",
+  "updatedAt": "2022-12-22T07:07:17.000Z",
   "id": 10,
   "name": "Backup workflows",
   "active": true,
@@ -529,5 +529,6 @@
   "dataLoaded": true,
   "pinData": null,
   "versionId": "602f7455-6866-4744-bdec-8f2342211743",
+  "triggerCount": 1,
   "tags": []
 }
