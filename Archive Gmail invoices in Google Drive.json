@@ -1,6 +1,6 @@
 {
   "createdAt": "2022-04-25T21:40:28.865Z",
-  "updatedAt": "2022-12-26T00:00:04.000Z",
+  "updatedAt": "2022-12-26T02:27:19.000Z",
   "id": 9,
   "name": "Archive Gmail invoices in Google Drive",
   "active": true,
@@ -39,34 +39,6 @@
     },
     {
       "parameters": {
-        "resource": "message",
-        "operation": "getAll",
-        "returnAll": true,
-        "additionalFields": {
-          "format": "resolved",
-          "q": "=after:{{$node[\"LastExecution\"].json[\"lastExecution\"]}} from:\"{{$node[\"SplitInBatches\"].json[\"fromQuery\"]}}\" filename:pdf filename:\"{{$node[\"SplitInBatches\"].json[\"fileNameIncludes\"]}}\""
-        }
-      },
-      "name": "Gmail",
-      "type": "n8n-nodes-base.gmail",
-      "typeVersion": 1,
-      "position": [
-        1240,
-        640
-      ],
-      "retryOnFail": true,
-      "maxTries": 5,
-      "waitBetweenTries": 5000,
-      "id": "6a3870db-91a9-4f41-889e-ff50c6c9e619",
-      "credentials": {
-        "gmailOAuth2": {
-          "id": "12",
-          "name": "Gmail account"
-        }
-      }
-    },
-    {
-      "parameters": {
         "authentication": "oAuth2",
         "binaryData": true,
         "binaryPropertyName": "attachment",
@@ -80,7 +52,7 @@
       "type": "n8n-nodes-base.googleDrive",
       "typeVersion": 1,
       "position": [
-        1640,
+        1840,
         640
       ],
       "retryOnFail": true,
@@ -93,19 +65,6 @@
           "name": "Google Drive account"
         }
       }
-    },
-    {
-      "parameters": {
-        "functionCode": "const fileNameIncludes = $item(0).$node[\"SplitInBatches\"].json.fileNameIncludes\nconst binary = {}\nbinary.attachment = Object.values(await getBinaryData()).find(a => a.fileName.includes(fileNameIncludes))\nsetBinaryData(binary)\nreturn item"
-      },
-      "name": "FunctionItem",
-      "type": "n8n-nodes-base.functionItem",
-      "typeVersion": 1,
-      "position": [
-        1440,
-        640
-      ],
-      "id": "d22072a7-0b29-4a78-abb2-02347b6cd9af"
     },
     {
       "parameters": {
@@ -123,19 +82,6 @@
     },
     {
       "parameters": {
-        "functionCode": "const nodeData = getWorkflowStaticData('node');\ndelete nodeData.lastExecution;\nconst lastExecution = new Date(2004, 3, 1)\nif (nodeData.lastExecution) {\n  lastExecution.setTime(nodeData.lastExecution)\n}\nnodeData.lastExecution = new Date().getTime();\nreturn [\n  {\n    lastExecution: lastExecution.toISOString().split('T')[0]\n  }\n]"
-      },
-      "name": "LastExecution",
-      "type": "n8n-nodes-base.function",
-      "typeVersion": 1,
-      "position": [
-        640,
-        640
-      ],
-      "id": "5279f34e-8506-43aa-8ad7-da7d73ff84c0"
-    },
-    {
-      "parameters": {
         "functionCode": "return [\n  {\n    json: {\n      fromQuery: \"aguasdoporto.pt@cgi.com\",\n      fileNameIncludes: \".DP.\",\n      folderId: \"1iaz3a5mRdu3MXfjs_qZ2nqBwCYKgMMOd\"\n    }\n  },\n  {\n    json: {\n      fromQuery: \"endesa.pt@cgi.com\",\n      fileNameIncludes: \".DP.\",\n      folderId: \"1A7-WIOfeTAJgJBEwaFqRPo9WoACmlpj9\"\n    }\n  },\n  {\n    json: {\n      fromQuery: \"fatura@telecom.pt\",\n      fileNameIncludes: \"FT \",\n      folderId: \"1zXfr50K8oIJKmB6xAKrU6G0gR_jBvh-L\"\n    }\n  },\n  {\n    json: {\n      fromQuery: \"contabilidade@osmope.pt\",\n      fileNameIncludes: \"Faturas\",\n      folderId: \"1hbPPVLen3GFEMZ3J6NmssIStQogT-B1v\"\n    }\n  }\n];"
       },
       "name": "MappingFunction",
@@ -146,6 +92,85 @@
         640
       ],
       "id": "4f912e30-c07a-40f1-a1d1-145e6b5b0941"
+    },
+    {
+      "parameters": {
+        "functionCode": "const data = getWorkflowStaticData(\"global\")\nconst lastExecution = new Date(2004, 3, 1)\nif (data.lastExecution) {\n  lastExecution.setTime(data.lastExecution)\n}\nreturn [\n  {\n    lastExecution: lastExecution.toISOString().split('T')[0],\n    currentExecution: new Date().getTime()\n  }\n]"
+      },
+      "name": "ReadLastExecution",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        640,
+        640
+      ],
+      "id": "5279f34e-8506-43aa-8ad7-da7d73ff84c0"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "returnAll": true,
+        "simple": false,
+        "filters": {
+          "q": "=after:{{$node[\"ReadLastExecution\"].json[\"lastExecution\"]}} from:\"{{$node[\"SplitInBatches\"].json[\"fromQuery\"]}}\" filename:pdf filename:\"{{$node[\"SplitInBatches\"].json[\"fileNameIncludes\"]}}\""
+        },
+        "options": {
+          "downloadAttachments": true
+        }
+      },
+      "id": "8160f922-cf66-4669-9ca8-a7ccbdcfd2ec",
+      "name": "Gmail",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2,
+      "position": [
+        1240,
+        640
+      ],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "12",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "if ($(\"SplitInBatches\").context[\"noItemsLeft\"]) {\n  const data = $getWorkflowStaticData(\"global\")\n  data.lastExecution = $(\"ReadLastExecution\").first().json[\"currentExecution\"]\n}\n\nreturn $input.all()"
+      },
+      "id": "eddf1303-86d0-40ed-8d96-432b2a7aaf5e",
+      "name": "SaveLastExecution",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        2040,
+        640
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Reverse to process oldest first\nreturn $input.all().reverse()"
+      },
+      "id": "bb710aca-51b6-4c48-9d66-50df5898cef8",
+      "name": "Reverse",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        1640,
+        640
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "const fileNameIncludes = $item(0).$node[\"SplitInBatches\"].json.fileNameIncludes\nconst binary = {}\nbinary.attachment = Object.values(await getBinaryDataAsync()).find(a => a.fileName.includes(fileNameIncludes))\nawait setBinaryDataAsync(binary)\nreturn item"
+      },
+      "name": "SelectAttachment",
+      "type": "n8n-nodes-base.functionItem",
+      "typeVersion": 1,
+      "position": [
+        1440,
+        640
+      ],
+      "id": "d22072a7-0b29-4a78-abb2-02347b6cd9af"
     }
   ],
   "connections": {
@@ -153,29 +178,7 @@
       "main": [
         [
           {
-            "node": "LastExecution",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Gmail": {
-      "main": [
-        [
-          {
-            "node": "FunctionItem",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "FunctionItem": {
-      "main": [
-        [
-          {
-            "node": "Google Drive",
+            "node": "ReadLastExecution",
             "type": "main",
             "index": 0
           }
@@ -197,18 +200,7 @@
       "main": [
         [
           {
-            "node": "SplitInBatches",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "LastExecution": {
-      "main": [
-        [
-          {
-            "node": "MappingFunction",
+            "node": "SaveLastExecution",
             "type": "main",
             "index": 0
           }
@@ -220,6 +212,61 @@
         [
           {
             "node": "SplitInBatches",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ReadLastExecution": {
+      "main": [
+        [
+          {
+            "node": "MappingFunction",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gmail": {
+      "main": [
+        [
+          {
+            "node": "SelectAttachment",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SaveLastExecution": {
+      "main": [
+        [
+          {
+            "node": "SplitInBatches",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reverse": {
+      "main": [
+        [
+          {
+            "node": "Google Drive",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SelectAttachment": {
+      "main": [
+        [
+          {
+            "node": "Reverse",
             "type": "main",
             "index": 0
           }
@@ -237,7 +284,7 @@
   },
   "dataLoaded": true,
   "pinData": {},
-  "versionId": "d992b12f-3dce-46a9-9317-6e4df9d4beaa",
+  "versionId": "fe775cac-9027-4e5d-a9f1-04eb1accdb45",
   "triggerCount": 1,
   "tags": []
 }
