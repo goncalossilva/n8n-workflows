@@ -1,6 +1,6 @@
 {
   "createdAt": "2022-05-15T23:08:05.108Z",
-  "updatedAt": "2022-05-15T23:08:31.477Z",
+  "updatedAt": "2022-12-26T02:00:20.000Z",
   "id": 12,
   "name": "Send email on workflow error",
   "active": false,
@@ -71,7 +71,7 @@
   "staticData": null,
   "dataLoaded": false,
   "pinData": null,
-  "versionId": "2c77f912-dc9e-41b0-82cf-bfde251d5e2a",
+  "versionId": "66ecc98d-b896-4ce3-9f50-a839d6774b23",
   "triggerCount": 0,
   "tags": []
 }
