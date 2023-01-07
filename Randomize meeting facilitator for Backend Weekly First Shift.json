@@ -1,7 +1,7 @@
 {
   "createdAt": "2022-05-09T11:38:03.808Z",
-  "updatedAt": "2022-12-29T07:03:17.000Z",
-  "id": 11,
+  "updatedAt": "2023-01-06T07:08:45.000Z",
+  "id": "11",
   "name": "Randomize meeting facilitator for Backend Weekly First Shift",
   "active": true,
   "nodes": [
@@ -106,7 +106,6 @@
     "errorWorkflow": "12"
   },
   "staticData": null,
-  "dataLoaded": true,
   "pinData": {},
   "versionId": "b27e869e-e2f8-4f6e-a6a2-2a8fab39a5a2",
   "triggerCount": 1,
