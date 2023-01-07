@@ -1,7 +1,7 @@
 {
   "createdAt": "2022-04-19T18:40:40.596Z",
   "updatedAt": "2022-05-15T23:10:31.430Z",
-  "id": 5,
+  "id": "5",
   "name": "Comment in Twist when RSS feed updates",
   "active": false,
   "nodes": [
@@ -132,7 +132,6 @@
     "errorWorkflow": "12"
   },
   "staticData": null,
-  "dataLoaded": false,
   "pinData": null,
   "versionId": "1f40d6df-9f45-4f7c-adf9-a64a534fd630",
   "triggerCount": 0,
