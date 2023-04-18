@@ -1,6 +1,6 @@
 {
   "createdAt": "2022-04-25T21:40:28.865Z",
-  "updatedAt": "2023-03-23T23:59:58.000Z",
+  "updatedAt": "2023-04-18T01:00:57.000Z",
   "id": "9",
   "name": "Archive Gmail invoices in Google Drive",
   "active": true,
@@ -82,7 +82,7 @@
     },
     {
       "parameters": {
-        "functionCode": "return [\n  {\n    json: {\n      fromQuery: \"aguasdoporto.pt@cgi.com\",\n      fileNameIncludes: \".DP.\",\n      folderId: \"1iaz3a5mRdu3MXfjs_qZ2nqBwCYKgMMOd\"\n    }\n  },\n  {\n    json: {\n      fromQuery: \"endesa.pt@cgi.com\",\n      fileNameIncludes: \".DP.\",\n      folderId: \"1A7-WIOfeTAJgJBEwaFqRPo9WoACmlpj9\"\n    }\n  },\n  {\n    json: {\n      fromQuery: \"fatura@telecom.pt\",\n      fileNameIncludes: \"FT \",\n      folderId: \"1zXfr50K8oIJKmB6xAKrU6G0gR_jBvh-L\"\n    }\n  },\n  {\n    json: {\n      fromQuery: \"contabilidade@osmope.pt\",\n      fileNameIncludes: \"Faturas\",\n      folderId: \"1hbPPVLen3GFEMZ3J6NmssIStQogT-B1v\"\n    }\n  }\n];"
+        "functionCode": "return [\n  {\n    json: {\n      fromQuery: \"aguasdoporto.pt@cgi.com\",\n      fileNameIncludes: \".DP.\",\n      folderId: \"1iaz3a5mRdu3MXfjs_qZ2nqBwCYKgMMOd\"\n    }\n  },\n  {\n    json: {\n      fromQuery: \"factura.electronica@luzboa.pt\",\n      fileNameIncludes: \"Documento_\",\n      folderId: \"1qZXt55QPbqtvY8VzzQHicgoHyfh9erH3\"\n    }\n  },\n  {\n    json: {\n      fromQuery: \"endesa.pt@cgi.com\",\n      fileNameIncludes: \".DP.\",\n      folderId: \"1A7-WIOfeTAJgJBEwaFqRPo9WoACmlpj9\"\n    }\n  },\n  {\n    json: {\n      fromQuery: \"fatura@telecom.pt\",\n      fileNameIncludes: \"FT \",\n      folderId: \"1zXfr50K8oIJKmB6xAKrU6G0gR_jBvh-L\"\n    }\n  },\n  {\n    json: {\n      fromQuery: \"contabilidade@osmope.pt\",\n      fileNameIncludes: \"Faturas\",\n      folderId: \"1hbPPVLen3GFEMZ3J6NmssIStQogT-B1v\"\n    }\n  }\n];"
       },
       "name": "MappingFunction",
       "type": "n8n-nodes-base.function",
@@ -286,7 +286,7 @@
     }
   },
   "pinData": {},
-  "versionId": "fe775cac-9027-4e5d-a9f1-04eb1accdb45",
+  "versionId": "22007570-5a2e-4495-a1df-67d86f36c991",
   "triggerCount": 1,
   "tags": []
 }
