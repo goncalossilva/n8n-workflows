@@ -1,9 +1,9 @@
 {
   "id": "3",
   "createdAt": "2022-04-18T21:51:26.303Z",
-  "updatedAt": "2023-01-28T07:03:02.000Z",
+  "updatedAt": "2023-07-09T23:35:12.000Z",
   "name": "Send GitHub notifications to Todoist project",
-  "active": true,
+  "active": false,
   "nodes": [
     {
       "parameters": {
@@ -34,8 +34,8 @@
         440,
         120
       ],
-      "disabled": true,
-      "id": "6c5c273d-46d3-4a86-9147-20d5170b8099"
+      "id": "6c5c273d-46d3-4a86-9147-20d5170b8099",
+      "disabled": true
     },
     {
       "parameters": {
@@ -56,13 +56,13 @@
       "retryOnFail": true,
       "maxTries": 5,
       "waitBetweenTries": 5000,
+      "id": "dc149d78-4278-4a52-b5bc-452948a82a52",
       "credentials": {
         "todoistOAuth2Api": {
           "id": "6",
           "name": "Todoist account"
         }
-      },
-      "id": "dc149d78-4278-4a52-b5bc-452948a82a52"
+      }
     },
     {
       "parameters": {
@@ -137,13 +137,13 @@
       "retryOnFail": true,
       "typeVersion": 1,
       "waitBetweenTries": 5000,
+      "id": "b3abb418-94df-47d6-b9fc-51643944e4be",
       "credentials": {
         "oAuth2Api": {
           "id": "9",
           "name": "GitHub OAuth2 Notifications Credential"
         }
-      },
-      "id": "b3abb418-94df-47d6-b9fc-51643944e4be"
+      }
     },
     {
       "parameters": {
@@ -220,8 +220,8 @@
     "errorWorkflow": "12"
   },
   "staticData": null,
-  "pinData": null,
-  "versionId": "db850acd-2a52-4152-be00-99567e429e53",
+  "pinData": {},
+  "versionId": "ff02572c-df7d-4961-9f89-f075709f75f4",
   "triggerCount": 1,
   "tags": []
 }
