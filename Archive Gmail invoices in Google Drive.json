@@ -1,7 +1,7 @@
 {
   "id": "9",
   "createdAt": "2022-04-25T21:40:28.865Z",
-  "updatedAt": "2023-04-18T01:00:57.000Z",
+  "updatedAt": "2023-07-20T22:19:31.000Z",
   "name": "Archive Gmail invoices in Google Drive",
   "active": true,
   "nodes": [
@@ -95,7 +95,7 @@
     },
     {
       "parameters": {
-        "functionCode": "const data = getWorkflowStaticData(\"global\")\nconst lastExecution = new Date(2004, 3, 1)\nif (data.lastExecution) {\n  lastExecution.setTime(data.lastExecution)\n}\nreturn [\n  {\n    lastExecution: lastExecution.toISOString().split('T')[0],\n    currentExecution: new Date().getTime()\n  }\n]"
+        "functionCode": "const data = getWorkflowStaticData(\"global\")\nconst lastExecution = new Date(2004, 3, 1)\n//if (data.lastExecution) {\n//  lastExecution.setTime(data.lastExecution)\n//}\nreturn [\n  {\n    lastExecution: lastExecution.toISOString().split('T')[0],\n    currentExecution: new Date().getTime()\n  }\n]"
       },
       "name": "ReadLastExecution",
       "type": "n8n-nodes-base.function",
@@ -203,6 +203,11 @@
             "node": "SaveLastExecution",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "SplitInBatches",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
@@ -242,13 +247,7 @@
     },
     "SaveLastExecution": {
       "main": [
-        [
-          {
-            "node": "SplitInBatches",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "Reverse": {
@@ -286,7 +285,7 @@
     }
   },
   "pinData": {},
-  "versionId": "22007570-5a2e-4495-a1df-67d86f36c991",
+  "versionId": "14e756a4-9731-42a8-8f5d-72b4b72f5c52",
   "triggerCount": 1,
   "tags": []
 }
