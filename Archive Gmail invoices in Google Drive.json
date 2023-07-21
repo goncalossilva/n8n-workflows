@@ -1,7 +1,7 @@
 {
   "id": "9",
   "createdAt": "2022-04-25T21:40:28.865Z",
-  "updatedAt": "2023-07-20T22:19:31.000Z",
+  "updatedAt": "2023-07-20T23:49:05.000Z",
   "name": "Archive Gmail invoices in Google Drive",
   "active": true,
   "nodes": [
@@ -52,8 +52,8 @@
       "type": "n8n-nodes-base.googleDrive",
       "typeVersion": 1,
       "position": [
-        1840,
-        640
+        1820,
+        620
       ],
       "retryOnFail": true,
       "waitBetweenTries": 5000,
@@ -68,21 +68,7 @@
     },
     {
       "parameters": {
-        "batchSize": 1,
-        "options": {}
-      },
-      "name": "SplitInBatches",
-      "type": "n8n-nodes-base.splitInBatches",
-      "typeVersion": 1,
-      "position": [
-        1040,
-        640
-      ],
-      "id": "bd155d2e-a5b4-48bc-9876-b8c4f57ea93d"
-    },
-    {
-      "parameters": {
-        "functionCode": "return [\n  {\n    json: {\n      fromQuery: \"aguasdoporto.pt@cgi.com\",\n      fileNameIncludes: \".DP.\",\n      folderId: \"1iaz3a5mRdu3MXfjs_qZ2nqBwCYKgMMOd\"\n    }\n  },\n  {\n    json: {\n      fromQuery: \"factura.electronica@luzboa.pt\",\n      fileNameIncludes: \"Documento_\",\n      folderId: \"1qZXt55QPbqtvY8VzzQHicgoHyfh9erH3\"\n    }\n  },\n  {\n    json: {\n      fromQuery: \"endesa.pt@cgi.com\",\n      fileNameIncludes: \".DP.\",\n      folderId: \"1A7-WIOfeTAJgJBEwaFqRPo9WoACmlpj9\"\n    }\n  },\n  {\n    json: {\n      fromQuery: \"fatura@telecom.pt\",\n      fileNameIncludes: \"FT \",\n      folderId: \"1zXfr50K8oIJKmB6xAKrU6G0gR_jBvh-L\"\n    }\n  },\n  {\n    json: {\n      fromQuery: \"contabilidade@osmope.pt\",\n      fileNameIncludes: \"Faturas\",\n      folderId: \"1hbPPVLen3GFEMZ3J6NmssIStQogT-B1v\"\n    }\n  }\n];"
+        "functionCode": "return [\n  {\n    json: {\n      fromQuery: \"aguasdoporto.pt@cgi.com\",\n      fileNameIncludes: \".DP.\",\n      folderId: \"1iaz3a5mRdu3MXfjs_qZ2nqBwCYKgMMOd\"\n    }\n  },\n  {\n    json: {\n      fromQuery: \"factura.electronica@luzboa.pt\",\n      fileNameIncludes: \"Documento\",\n      folderId: \"1qZXt55QPbqtvY8VzzQHicgoHyfh9erH3\"\n    }\n  },\n  {\n    json: {\n      fromQuery: \"endesa.pt@cgi.com\",\n      fileNameIncludes: \".DP.\",\n      folderId: \"1A7-WIOfeTAJgJBEwaFqRPo9WoACmlpj9\"\n    }\n  },\n  {\n    json: {\n      fromQuery: \"fatura@telecom.pt\",\n      fileNameIncludes: \"FT \",\n      folderId: \"1zXfr50K8oIJKmB6xAKrU6G0gR_jBvh-L\"\n    }\n  },\n  {\n    json: {\n      fromQuery: \"contabilidade@osmope.pt\",\n      fileNameIncludes: \"Faturas\",\n      folderId: \"1hbPPVLen3GFEMZ3J6NmssIStQogT-B1v\"\n    }\n  }\n];"
       },
       "name": "MappingFunction",
       "type": "n8n-nodes-base.function",
@@ -123,9 +109,10 @@
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2,
       "position": [
-        1240,
-        640
+        1220,
+        620
       ],
+      "alwaysOutputData": false,
       "credentials": {
         "gmailOAuth2": {
           "id": "12",
@@ -142,8 +129,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 1,
       "position": [
-        2040,
-        640
+        1220,
+        840
       ]
     },
     {
@@ -155,8 +142,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 1,
       "position": [
-        1640,
-        640
+        1620,
+        620
       ]
     },
     {
@@ -167,10 +154,26 @@
       "type": "n8n-nodes-base.functionItem",
       "typeVersion": 1,
       "position": [
-        1440,
-        640
+        1420,
+        620
       ],
       "id": "d22072a7-0b29-4a78-abb2-02347b6cd9af"
+    },
+    {
+      "parameters": {
+        "batchSize": 1,
+        "options": {
+          "reset": true
+        }
+      },
+      "id": "0aad1731-5bd7-4306-b7e7-8c03c46c0124",
+      "name": "SplitInBatches",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 2,
+      "position": [
+        1040,
+        640
+      ]
     }
   ],
   "connections": {
@@ -185,31 +188,9 @@
         ]
       ]
     },
-    "SplitInBatches": {
-      "main": [
-        [
-          {
-            "node": "Gmail",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Google Drive": {
       "main": [
-        [
-          {
-            "node": "SaveLastExecution",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "SplitInBatches",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "MappingFunction": {
@@ -241,13 +222,13 @@
             "node": "SelectAttachment",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "SplitInBatches",
+            "type": "main",
+            "index": 0
           }
         ]
-      ]
-    },
-    "SaveLastExecution": {
-      "main": [
-        []
       ]
     },
     "Reverse": {
@@ -271,6 +252,24 @@
           }
         ]
       ]
+    },
+    "SplitInBatches": {
+      "main": [
+        [
+          {
+            "node": "Gmail",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "SaveLastExecution",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "settings": {
@@ -285,7 +284,7 @@
     }
   },
   "pinData": {},
-  "versionId": "14e756a4-9731-42a8-8f5d-72b4b72f5c52",
+  "versionId": "ababb25d-6343-4c70-91b8-3c46c6034ec0",
   "triggerCount": 1,
   "tags": []
 }
