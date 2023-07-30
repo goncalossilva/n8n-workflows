@@ -1,7 +1,7 @@
 {
   "id": "9",
   "createdAt": "2022-04-25T21:40:28.865Z",
-  "updatedAt": "2023-07-29T14:26:32.000Z",
+  "updatedAt": "2023-07-29T23:05:19.000Z",
   "name": "Archive Gmail invoices in Google Drive",
   "active": true,
   "nodes": [
@@ -124,7 +124,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const data = $getWorkflowStaticData(\"global\")\ndata.lastExecution = $(\"ReadLastExecution\").first().json[\"currentExecution\"]"
+        "jsCode": "const data = $getWorkflowStaticData(\"global\")\ndata.lastExecution = $(\"ReadLastExecution\").first().json[\"currentExecution\"]\nreturn $input.all()"
       },
       "id": "eddf1303-86d0-40ed-8d96-432b2a7aaf5e",
       "name": "SaveLastExecution",
@@ -285,11 +285,11 @@
       "lastExecution": 1672012770262
     },
     "global": {
-      "lastExecution": 1679615978992
+      "lastExecution": 1690671570165
     }
   },
   "pinData": {},
-  "versionId": "e904a57b-5ce3-4893-9203-c3fb5332421d",
+  "versionId": "9d374887-e1ca-4c86-807d-b743f749387b",
   "triggerCount": 1,
   "tags": []
 }
