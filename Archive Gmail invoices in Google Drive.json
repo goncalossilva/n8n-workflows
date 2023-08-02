@@ -1,7 +1,7 @@
 {
   "id": "9",
   "createdAt": "2022-04-25T21:40:28.865Z",
-  "updatedAt": "2023-07-29T23:05:19.000Z",
+  "updatedAt": "2023-08-02T00:42:33.000Z",
   "name": "Archive Gmail invoices in Google Drive",
   "active": true,
   "nodes": [
@@ -151,7 +151,7 @@
     },
     {
       "parameters": {
-        "functionCode": "const fileNameIncludes = $item(0).$node[\"SplitInBatches\"].json.fileNameIncludes\nconst binary = {}\nbinary.attachment = Object.values(await getBinaryDataAsync()).find(a => a.fileName.includes(fileNameIncludes))\nawait setBinaryDataAsync(binary)\nreturn item"
+        "functionCode": "const fileNameIncludes = $item(0).$node[\"SplitInBatches\"].json.fileNameIncludes\nconst binary = {}\nconst binaryData = await getBinaryDataAsync()\nif (binaryData) {\n  binary.attachment = Object.values(binaryData).find(a => a.fileName.includes(fileNameIncludes))\n  await setBinaryDataAsync(binary)\n}\nreturn item"
       },
       "name": "SelectAttachment",
       "type": "n8n-nodes-base.functionItem",
@@ -289,7 +289,7 @@
     }
   },
   "pinData": {},
-  "versionId": "9d374887-e1ca-4c86-807d-b743f749387b",
+  "versionId": "50118900-76fd-4911-bd8e-e483dad36932",
   "triggerCount": 1,
   "tags": []
 }
