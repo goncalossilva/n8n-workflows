@@ -1,7 +1,7 @@
 {
   "id": "9",
   "createdAt": "2022-04-25T21:40:28.865Z",
-  "updatedAt": "2023-08-02T00:42:33.000Z",
+  "updatedAt": "2023-08-04T02:11:44.000Z",
   "name": "Archive Gmail invoices in Google Drive",
   "active": true,
   "nodes": [
@@ -59,7 +59,7 @@
       "waitBetweenTries": 5000,
       "maxTries": 5,
       "id": "290dfc61-db09-4ef3-989c-bc1db537f5a8",
-      "alwaysOutputData": true,
+      "alwaysOutputData": false,
       "credentials": {
         "googleDriveOAuth2Api": {
           "id": "13",
@@ -113,7 +113,7 @@
         1220,
         620
       ],
-      "alwaysOutputData": true,
+      "alwaysOutputData": false,
       "retryOnFail": false,
       "credentials": {
         "gmailOAuth2": {
@@ -147,7 +147,7 @@
         1620,
         620
       ],
-      "alwaysOutputData": true
+      "alwaysOutputData": false
     },
     {
       "parameters": {
@@ -161,7 +161,7 @@
         620
       ],
       "id": "d22072a7-0b29-4a78-abb2-02347b6cd9af",
-      "alwaysOutputData": true
+      "alwaysOutputData": false
     },
     {
       "parameters": {
@@ -289,7 +289,7 @@
     }
   },
   "pinData": {},
-  "versionId": "50118900-76fd-4911-bd8e-e483dad36932",
+  "versionId": "c6fb8f96-ceeb-4566-b51d-59f9f0163a95",
   "triggerCount": 1,
   "tags": []
 }
