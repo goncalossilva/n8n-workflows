@@ -106,6 +106,7 @@
     "errorWorkflow": "12"
   },
   "staticData": null,
+  "meta": null,
   "pinData": {},
   "versionId": "58bc9e04-853d-46e5-8ac9-ce30963c68e7",
   "triggerCount": 1,
