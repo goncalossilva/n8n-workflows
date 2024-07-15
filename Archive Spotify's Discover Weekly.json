@@ -1,9 +1,9 @@
 {
   "createdAt": "2022-04-19T17:51:25.134Z",
-  "updatedAt": "2023-01-28T07:03:02.000Z",
+  "updatedAt": "2024-07-15T17:13:06.000Z",
   "id": "4",
   "name": "Archive Spotify's Discover Weekly",
-  "active": true,
+  "active": false,
   "nodes": [
     {
       "parameters": {},
