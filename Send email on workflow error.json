@@ -4,6 +4,7 @@
   "id": "12",
   "name": "Send email on workflow error",
   "active": false,
+  "isArchived": false,
   "nodes": [
     {
       "parameters": {},
