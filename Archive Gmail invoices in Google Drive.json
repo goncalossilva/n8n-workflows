@@ -4,6 +4,7 @@
   "id": "9",
   "name": "Archive Gmail invoices in Google Drive",
   "active": false,
+  "isArchived": false,
   "nodes": [
     {
       "parameters": {},
