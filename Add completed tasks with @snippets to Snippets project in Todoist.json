@@ -4,6 +4,7 @@
   "id": "1",
   "name": "Add completed tasks with @snippets to Snippets project in Todoist",
   "active": true,
+  "isArchived": false,
   "nodes": [
     {
       "parameters": {},
