@@ -4,6 +4,7 @@
   "id": "10",
   "name": "Backup workflows",
   "active": true,
+  "isArchived": false,
   "nodes": [
     {
       "parameters": {},
