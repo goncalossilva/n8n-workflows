@@ -4,6 +4,7 @@
   "id": "3",
   "name": "Send GitHub notifications to Todoist project",
   "active": false,
+  "isArchived": false,
   "nodes": [
     {
       "parameters": {
