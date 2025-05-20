@@ -4,6 +4,7 @@
   "id": "4",
   "name": "Archive Spotify's Discover Weekly",
   "active": false,
+  "isArchived": false,
   "nodes": [
     {
       "parameters": {},
