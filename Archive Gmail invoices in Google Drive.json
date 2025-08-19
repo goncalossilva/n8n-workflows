@@ -293,5 +293,23 @@
   "pinData": {},
   "versionId": "45e956ae-0fb0-482c-baf2-ade22dfb2fa3",
   "triggerCount": 1,
-  "tags": []
+  "tags": [],
+  "shared": [
+    {
+      "createdAt": "2022-04-25T21:40:29.195Z",
+      "updatedAt": "2022-04-25T21:40:29.195Z",
+      "role": "workflow:owner",
+      "workflowId": "9",
+      "projectId": "rteHPQr0gQHvUBnH",
+      "project": {
+        "createdAt": "2024-06-07T07:01:15.292Z",
+        "updatedAt": "2024-06-07T07:01:15.292Z",
+        "id": "rteHPQr0gQHvUBnH",
+        "name": "Gonçalo Silva <goncalossilva@gmail.com>",
+        "type": "personal",
+        "icon": null,
+        "description": null
+      }
+    }
+  ]
 }
