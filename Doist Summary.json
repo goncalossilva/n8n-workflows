@@ -1,0 +1,1287 @@
+{
+  "createdAt": "2025-10-27T18:19:48.833Z",
+  "updatedAt": "2025-10-27T18:29:14.000Z",
+  "id": "ekNtCLOwi49Vywr9",
+  "name": "Doist Summary",
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -416,
+        416
+      ],
+      "id": "23a37b66-906d-433f-89ff-df82d3608d2e",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.twist_api }}/conversations/get_unread",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "twistOAuth2Api",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "workspace_id",
+              "value": "={{ $json.workspace_id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        32,
+        416
+      ],
+      "id": "69edfdf0-472d-4e13-bf2e-8bda71f1b052",
+      "name": "Get Unread Conversations",
+      "alwaysOutputData": true,
+      "credentials": {
+        "twistOAuth2Api": {
+          "id": "11",
+          "name": "Twist account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "{\n  \"workspace_id\": \"1585\",\n  \"twist_api\": \"https://api.twist.com/api/v3\",\n  \"whois\": \"Gonçalo\",\n  \"todoist_filter\": \"(today | (@work & @next)) & (assigned to: me | !assigned)\",\n  \"conversation_id\": \"146676\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -192,
+        416
+      ],
+      "id": "0fbf27dd-8a09-4166-96e3-e2b1d55e5508",
+      "name": "Variables"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.twist_api }}/threads/get_unread",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "twistOAuth2Api",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "workspace_id",
+              "value": "={{ $json.workspace_id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        32,
+        640
+      ],
+      "id": "e86fd9eb-4304-4ff1-b657-4a3c3a007d3c",
+      "name": "Get Unread threads",
+      "alwaysOutputData": true,
+      "credentials": {
+        "twistOAuth2Api": {
+          "id": "11",
+          "name": "Twist account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://api.twist.com/api/v3/comments/get",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "twistOAuth2Api",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "thread_id",
+              "value": "={{ $json.thread_id }}"
+            },
+            {
+              "name": "from_obj_index",
+              "value": "={{ $json.obj_index }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        464,
+        640
+      ],
+      "id": "dec8c1f9-458e-4c67-9315-c036c8157cbb",
+      "name": "Get Thread Comments",
+      "credentials": {
+        "twistOAuth2Api": {
+          "id": "11",
+          "name": "Twist account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldsToSummarize": {
+          "values": [
+            {
+              "aggregation": "append",
+              "field": "thread"
+            }
+          ]
+        },
+        "fieldsToSplitBy": "thread_id",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.summarize",
+      "typeVersion": 1.1,
+      "position": [
+        1120,
+        640
+      ],
+      "id": "66445b44-65eb-40ae-a918-6d4f694befa5",
+      "name": "Group By Thread Id"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "8483259c-3da4-478e-af36-5a9bad78c187",
+              "name": "thread_id",
+              "value": "={{ $json.thread_id }}",
+              "type": "string"
+            },
+            {
+              "id": "992fcbc3-ed6d-40f0-9c0d-da55d6baff87",
+              "name": "thread.channel_id",
+              "value": "={{ $json.channel_id }}",
+              "type": "number"
+            },
+            {
+              "id": "b50a73e2-c18d-44d1-9964-a1d7600d5321",
+              "name": "thread.thread_id",
+              "value": "={{ $json.thread_id }}",
+              "type": "number"
+            },
+            {
+              "id": "b48bc2f5-03c0-49a0-b0ef-339cd0852b01",
+              "name": "thread.content",
+              "value": "={{ $json.content }}",
+              "type": "string"
+            },
+            {
+              "id": "a89aaa95-e8d2-4cf0-bf6c-8444b65dd490",
+              "name": "thread.creator_name",
+              "value": "={{ $json.creator_name }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        896,
+        640
+      ],
+      "id": "41735819-4a01-495e-bd65-65c399954855",
+      "name": "Store Thread"
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "operation": "getAll",
+        "filters": {
+          "filter": "={{ $json.todoist_filter }}"
+        }
+      },
+      "type": "n8n-nodes-base.todoist",
+      "typeVersion": 2.1,
+      "position": [
+        32,
+        192
+      ],
+      "id": "43f75c6b-5e48-483f-a6aa-9201db25ba41",
+      "name": "Today's tasks",
+      "credentials": {
+        "todoistOAuth2Api": {
+          "id": "6",
+          "name": "Todoist account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "={{ $('Variables').item.json.twist_api }}/conversation_messages/get",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "twistOAuth2Api",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "conversation_id",
+              "value": "={{ $json.conversation_id }}"
+            },
+            {
+              "name": "from_obj_index",
+              "value": "={{ $json.obj_index }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        464,
+        416
+      ],
+      "id": "bd7db68a-16c0-48c0-91c7-26f22b15449a",
+      "name": "Get All Messages",
+      "credentials": {
+        "twistOAuth2Api": {
+          "id": "11",
+          "name": "Twist account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldsToSummarize": {
+          "values": [
+            {
+              "aggregation": "append",
+              "field": "conversation"
+            }
+          ]
+        },
+        "fieldsToSplitBy": "conversation_id",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.summarize",
+      "typeVersion": 1.1,
+      "position": [
+        1120,
+        416
+      ],
+      "id": "87bae870-cace-4acf-8ab9-af3ae6d75e25",
+      "name": "Group By Conversation Id"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "b46f84c9-3686-42ca-8d06-a446ad6b741c",
+              "leftValue": "={{ $json.deleted }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "false",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        672,
+        416
+      ],
+      "id": "fc17d978-40cd-47d9-944d-789dc1675f66",
+      "name": "Filter: Deleted Messages"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        1504,
+        896
+      ],
+      "id": "8cce8212-f62b-4820-b871-7be15cb91ff1",
+      "name": "Gemini 2.5 Flash",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "pghrD0vRol1swXjM",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ JSON.stringify($json) }}",
+        "options": {
+          "systemMessage": "You are an assistant that produces a daily digest from a JSON input containing:\n\t•\ttasks[] (Todoist-style): fields include content, priority (1–4), due (object with date YYYY-MM-DD and possibly recurring string like “every workday”, “every monday”), url.\n\t•\tconversations[] (DMs): each has conversation_url, and output with type_primary, summary, importance (0–5), density, needs_response (bool).\n\t•\tthreads[]: each has url, and output with the same shape as conversations.\n\nObjective\n\nCreate a single daily digest that:\n\t•\tIncludes every item (do not omit anything).\n\t•\tGroups related items so they can be tackled together.\n\t•\tOrders groups by the most urgent/important item within each group.\n\t•\tUses a sectioned format with emoji headings.\n\t•\tShows minimal hints only: due labels (e.g., “Due today”, “Due Mon 27 Oct”) and “Needs reply” for response-required items.\n\nTime and date rules\n\t•\t“Today” is the current calendar day in your local timezone.\n\t•\tIf a task is recurring every workday, treat it as today on Mon–Fri.\n\t•\tIf a task recurs “every monday”, consider the next Monday after today.\n\t•\tIf an item has both a “date” and a “due”, use whichever is closer to today for urgency and labeling.\n\nRanking model (0–100 “attention score”)\n\nCompute an item score; the group score is the maximum of its items.\n\nThreads & DMs\n\t•\timportance (0–5) × 4\n\t•\tneeds_response true → +10\n\nTasks\n\t•\tpriority (1–4) × 3\n\t•\tDate proximity:\n\t•\t+12 if overdue\n\t•\t+8 if due today\n\t•\t+6 if due tomorrow\n\t•\t+4 if due within 3 days\n\t•\t+0 otherwise\n\nDensity is not used for ranking; it’s only a hint (do not display unless asked).\n\nTiebreakers (in order):\nneeds_response → nearer due/date → higher importance/priority → more recent update (if available).\n\nGrouping rules\n\nGroup items when any of these hold:\n\t•\tSame project / channel / thread / conversation IDs.\n\t•\tShared keywords in titles/summaries.\n\t•\tShared labels/tags (if present).\n\t•\tHigh fuzzy text similarity.\n\nGroup title: derive from the best shared context (project, topic noun phrase, or concise theme).\n\nOutput format\n\nProduce only the digest in Markdown. Use these sections if they contain items:\n\n🚨 Overdue & Urgent\n\t•\tGroups whose top item is an overdue or due-today task.\n\n📨 Needs Response\n\t•\tGroups whose top item has needs_response: true. (Groups may include related items that don’t need a reply—keep them with the group.)\n\n⏰ Today / Tomorrow\n\t•\tGroups whose top item has a task due tomorrow, or any item in the group has a task due within 3 days and none qualify above.\n\n💬 Active & Informational\n\t•\tGroups consisting primarily of threads/DMs with no immediate due pressure.\n\n📅 Upcoming & Low Priority\n\t•\tEverything else.\n\nWithin each group:\n\t•\tStart with a bold group title on one line.\n\t•\tThen list items in descending score:\n\t•\t- [Title or concise summary](URL) — <label>\n\t•\tLabels are only: Due today, Due Tue 28 Oct, Needs reply, Overdue.\n\t•\tKeep tone friendly but succinct; emoji are okay in headings, not in item lines.\n\nConstraints\n\t•\tDo not omit items.\n\t•\tKeep the digest informational and to the point.\n\t•\tUse Markdown links for every item’s URL.\n\t•\tNo extra commentary before or after the digest.\n\nExample call\n\t•\tInput: a JSON object with tasks, conversations, threads arrays.\n\t•\tOutput: the sectioned Markdown digest as specified above."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        2592,
+        448
+      ],
+      "id": "3b0484f4-87f5-45ea-864a-d91080b008e4",
+      "name": "PAIST Planner"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.5-pro",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        2592,
+        656
+      ],
+      "id": "8e19d19a-b9ce-4fb8-b960-567ecb273e97",
+      "name": "Google Gemini Chat Model1",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "pghrD0vRol1swXjM",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "destinationFieldName": "tasks",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        2112,
+        192
+      ],
+      "id": "ce454a13-9a70-4c60-9baf-ced302439111",
+      "name": "Combine all tasks"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "812ed34a-8528-4f26-adf6-89b1a57066d5",
+              "name": "conversation_id",
+              "value": "={{ $json.conversation_id }}",
+              "type": "string"
+            },
+            {
+              "id": "b8b4aa83-cfc1-4118-bc06-e0d5172c2106",
+              "name": "conversation.conversation_id",
+              "value": "={{ $json.conversation_id }}",
+              "type": "number"
+            },
+            {
+              "id": "80f764eb-72d8-422f-8dc1-286bbcb8a219",
+              "name": "conversation.content",
+              "value": "={{ $json.content }}",
+              "type": "string"
+            },
+            {
+              "id": "4bd5d099-e337-4d5a-8b50-fe561647c756",
+              "name": "conversation.creator_name",
+              "value": "={{ $json.creator_name }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        896,
+        416
+      ],
+      "id": "08bf5329-3a5e-4f37-a0f9-3229dd803da9",
+      "name": "Store Messages"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "5fecaf3e-0e3a-4d9d-8c50-7fd7aec1a23b",
+              "leftValue": "={{ $json.deleted }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "false",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        672,
+        640
+      ],
+      "id": "24f466e4-8c99-4e82-afe7-80385b2f10cd",
+      "name": "Filter Deleted Threads"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Process the following conversations and return results in valid JSON only, one object per conversation, preserving input order. Do not invent fields or content. Use the schema from the system prompt.\n\nUSER_CONTEXT:\n- user name: \"{{ $('Variables').item.json.whois }}\"\"\n- now_iso: \"{{ $json.now ?? $now }}\"  // optional; helps density/recency if you use timestamps\n\nINPUT:\n\n{{ JSON.stringify($json) }}",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "=You are an intelligent personal assistant whose goal is to help the user stay organised, reduce noise, and focus on the most meaningful conversations.\n\nYou will read message threads, understand their intent, and produce a structured summary in **valid JSON** only — no extra text.\n\n---\n\n### Process\n1. **Understand the conversation**\n   - Read all messages.\n   - Identify the main topic, purpose, and outcome.\n   - Note whether the user was asked to act.\n\n2. **Classify the thread**\n   - Use one primary and optional secondary type:\n     [\"project\", \"informational\", \"request\", \"issue\", \"social\", \"other\"]\n\n3. **Score importance (0–5)**\n   - Base score:\n     request=3, issue=3, project=2, informational=1, social=0, other=1\n   - Add +2 if user is mentioned directly (cap 5)\n   - Add +1 if urgent, decision-critical, or blocking (cap 5)\n\n4. **Score density (0–5)**\n   - 0–2 = few/short/casual comments  \n   - 3–4 = moderate thread with substance  \n   - 5 = large, detailed, or decision-heavy thread\n\n5. **Summarise**\n   - One short, factual paragraph (≤ 60 words)\n   - Describe what happened, main topic, and any clear outcome.\n\n6. **Response logic**\n   - `needs_response` = true if:\n     - the comment implies a question, action, or unresolved decision.\n   - If true, include a short, imperative `response_hint`\n     (start with a verb, e.g. “Acknowledge…”, “Clarify…”, “Share feedback…”).\n\n---\n\n### Output format\nReturn only JSON (no text before/after):\n{\n  \"type_primary\": \"string\",\n  \"importance\": 0,\n  \"density\": 0,\n  \"summary\": \"string\",\n  \"needs_response\": true,\n  \"response_hint\": \"string\"\n}\n\nIf `needs_response` = false, omit `response_hint`.\n\n---\n\n### Example input\n{\n  \"conversation_id\": 7339181,\n  \"appended_conversation\": {\n    \"conversation_id\": 7339181,\n    \"content\": \"**@Developers** we're extending the survey deadline to gather more feedback. Please fill it out soon!\",\n    \"creator_name\": \"Enric Enrich\"\n  }\n}\n\n### Example output\n{\n  \"type_primary\": \"informational\",\n  \"importance\": 4,\n  \"density\": 2,\n  \"summary\": \"A reminder from Enric extending the developer survey deadline and asking for more responses.\",\n  \"needs_response\": true,\n  \"response_hint\": \"Acknowledge and confirm participation or provide feedback on the survey.\"\n}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        1584,
+        416
+      ],
+      "id": "2753f054-a805-486d-8199-56d4ef2ac89f",
+      "name": "PAIST Conversation Summariser",
+      "retryOnFail": true
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Process the following threads and return results in valid JSON only, one object per thread, preserving input order. Do not invent fields or content. Use the schema from the system prompt.\n\nUSER_CONTEXT:\n- now_iso: \"{{ $json.now ?? $now }}\"  // optional; helps density/recency if you use timestamps\n\nINPUT:\n\n{{ JSON.stringify($json) }}",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "You are an intelligent personal assistant whose goal is to help the user stay organised, reduce noise, and focus on the most meaningful conversations.\n\nYou will read message threads, understand their intent, and produce a structured summary in **valid JSON** only — no extra text.\n\n---\n\n### Process\n1. **Understand the conversation**\n   - Read all messages.\n   - Identify the main topic, purpose, and outcome.\n   - Note whether the user was mentioned or asked to act.\n\n2. **Classify the thread**\n   - Use one primary type:\n     [\"project\", \"informational\", \"request\", \"issue\", \"social\", \"other\"]\n\n3. **Score importance (0–5)**\n   - Base score:\n     request=3, issue=3, project=2, informational=1, social=0, other=1\n   - Add +2 if user is mentioned directly (cap 5)\n   - Add +1 if urgent, decision-critical, or blocking (cap 5)\n\n4. **Score density (0–5)**\n   - 0–2 = few/short/casual comments  \n   - 3–4 = moderate thread with substance  \n   - 5 = large, detailed, or decision-heavy thread\n\n5. **Summarise**\n   - One short, factual paragraph (≤ 60 words)\n   - Describe what happened, main topic, and any clear outcome.\n\n6. **Response logic**\n   - `needs_response` = true if:\n     - user is directly mentioned **and**\n       the comment implies a question, action, or unresolved decision.\n\n---\n\n### Output format\nReturn only JSON (no text before/after):\n{\n  \"type_primary\": \"string\",\n  \"importance\": 0,\n  \"density\": 0,\n  \"summary\": \"string\",\n  \"needs_response\": true,\n}\n\n---\n\n### Example input\n{\n  \"thread_id\": 7339181,\n  \"thread\": {\n    \"channel_id\": 1265,\n    \"thread_id\": 7339181,\n    \"content\": \"**@Developers** we're extending the survey deadline to gather more feedback. Please fill it out soon!\",\n    \"creator_name\": \"Enric Enrich\"\n  }\n}\n\n### Example output\n{\n  \"type_primary\": \"informational\",\n  \"importance\": 4,\n  \"density\": 2,\n  \"summary\": \"A reminder from Enric extending the developer survey deadline and asking for more responses.\",\n  \"needs_response\": true,\n}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        1584,
+        640
+      ],
+      "id": "2531cbe8-a09f-4ed1-be64-0256cb2a88dd",
+      "name": "PAIST Thread Summariser",
+      "retryOnFail": true
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"type_primary\": \"informational\",\n  \"importance\": 4,\n  \"density\": 2,\n  \"summary\": \"A reminder from Enric extending the developer survey deadline and asking for more responses.\",\n  \"needs_response\": true\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        1728,
+        896
+      ],
+      "id": "92f7af26-dac5-4737-ab50-016b0a15560c",
+      "name": "Thread Output Parser"
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"type_primary\": \"informational\",\n  \"importance\": 4,\n  \"density\": 2,\n  \"summary\": \"A reminder from Enric extending the developer survey deadline and asking for more responses.\",\n  \"needs_response\": false\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        1888,
+        896
+      ],
+      "id": "8ec358bf-a1e1-409d-88fe-eae538060dea",
+      "name": "Conversation Output Parser"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "d8a79ecb-8c78-4057-a49c-eecfe630c132",
+              "name": "conversation_id",
+              "value": "={{ $json.conversation_id }}",
+              "type": "string"
+            },
+            {
+              "id": "4d70f426-c61d-49f6-9b6f-1281472af10f",
+              "name": "conversation",
+              "value": "={{ $json.appended_conversation }}",
+              "type": "array"
+            },
+            {
+              "id": "7577ad4a-4e02-4657-8148-01d46bc8affd",
+              "name": "conversation_url",
+              "value": "={{ `https://twist.com/a/` + $('Variables').item.json.workspace_id + `/msg/` + $json.conversation_id }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1328,
+        416
+      ],
+      "id": "1d89774d-c942-4b90-8426-b83503bd6771",
+      "name": "Set Conversation URL"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        1936,
+        432
+      ],
+      "id": "aef166af-859a-42d1-ae2c-a4c28075d071",
+      "name": "Merge Summary and Conversation"
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "destinationFieldName": "comments",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        2112,
+        432
+      ],
+      "id": "da2a8a7f-9152-4d22-842e-b08f272ce09d",
+      "name": "Combine All Conversations"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f0e3d4fd-d340-4003-aac0-c6992380a16b",
+              "name": "thread_id",
+              "value": "={{ $json.thread_id }}",
+              "type": "string"
+            },
+            {
+              "id": "9ee55aa5-73f8-453b-b466-9ffa2f5c6141",
+              "name": "thread",
+              "value": "={{ $json.appended_thread }}",
+              "type": "array"
+            },
+            {
+              "id": "2403870b-9fc0-416f-8c53-bcd5b13c7372",
+              "name": "thread_url",
+              "value": "={{ `https://twist.com/a/` + $('Variables').item.json.workspace_id + `/ch/` + $json.appended_thread[0].channel_id + `/t/` + $json.thread_id }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1328,
+        640
+      ],
+      "id": "41dce55f-c7fb-4e9b-a314-616d77fe6c50",
+      "name": "Set Thread URL"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        1936,
+        640
+      ],
+      "id": "63355953-74a5-4785-838c-149a30ddd7b8",
+      "name": "Merge Summary and Thread"
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "destinationFieldName": "threads",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        2112,
+        640
+      ],
+      "id": "f27a5d4d-cb4b-430f-983f-825889dc374d",
+      "name": "Combine All Threads"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "numberInputs": 3,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        2384,
+        432
+      ],
+      "id": "ac614b0c-42ba-49f0-b4ea-4925cff577c8",
+      "name": "Merge Everything"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Variables').item.json.twist_api }}/conversation_messages/add",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "twistOAuth2Api",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "conversation_id",
+              "value": "={{ $('Variables').item.json.conversation_id }}"
+            },
+            {
+              "name": "content",
+              "value": "={{ $json.output }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2912,
+        448
+      ],
+      "id": "d01bb259-d62d-4af9-9dd1-74c38b071a97",
+      "name": "HTTP Request",
+      "credentials": {
+        "twistOAuth2Api": {
+          "id": "11",
+          "name": "Twist account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 10
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -416,
+        624
+      ],
+      "id": "625c4ca6-87a5-4da4-bda9-57a3f45dfedd",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "355160e0-a20e-4472-8d8c-2ebcd9c0ad06",
+              "leftValue": "={{ $json }}",
+              "rightValue": "",
+              "operator": {
+                "type": "object",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        256,
+        640
+      ],
+      "id": "c2f797c5-be4c-4ffd-bd55-0e06c23f5ef0",
+      "name": "If Threads"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "8b1167c4-e6cb-49a2-9b45-666496f36211",
+              "leftValue": "={{ $json }}",
+              "rightValue": "",
+              "operator": {
+                "type": "object",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        256,
+        416
+      ],
+      "id": "92ff4c6b-04a5-441e-b286-0d711c23ca4f",
+      "name": "If Conversations"
+    },
+    {
+      "parameters": {
+        "content": "## Variables\n\nSet your variables here. For where the post goes and your name",
+        "height": 288,
+        "width": 192
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -240,
+        272
+      ],
+      "typeVersion": 1,
+      "id": "73c9a60d-2ef6-4e81-824f-581298e5b983",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "## Get stuff\n\nGets unread threads, conversations and Todoist tasks",
+        "height": 816,
+        "width": 160
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        0
+      ],
+      "typeVersion": 1,
+      "id": "d68e58b2-efef-473d-b44d-9e7687ffd157",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "## Get content\n\nGets the actual content",
+        "height": 816,
+        "width": 160
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        432,
+        0
+      ],
+      "typeVersion": 1,
+      "id": "3c3f1dba-1e00-4624-b0f6-0256ef61e15a",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "content": "## Summarise\nReviews the content and gives a summary, type, density etc. Feel free to adjust the prompt for your needs",
+        "height": 544,
+        "width": 320
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1536,
+        272
+      ],
+      "typeVersion": 1,
+      "id": "da9f61c6-d111-4cf7-b564-353240f642c8",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "content": "## PA\nTakes all the tasks, threads, conversations and summary and groups it all and suggests if a response is needed",
+        "height": 528,
+        "width": 304
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        2544,
+        288
+      ],
+      "typeVersion": 1,
+      "id": "a6efb739-208b-4220-94d8-717841ac3c57",
+      "name": "Sticky Note"
+    }
+  ],
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Variables",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Unread Conversations": {
+      "main": [
+        [
+          {
+            "node": "If Conversations",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Variables": {
+      "main": [
+        [
+          {
+            "node": "Get Unread Conversations",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Get Unread threads",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Today's tasks",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Unread threads": {
+      "main": [
+        [
+          {
+            "node": "If Threads",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Thread Comments": {
+      "main": [
+        [
+          {
+            "node": "Filter Deleted Threads",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Group By Thread Id": {
+      "main": [
+        [
+          {
+            "node": "Set Thread URL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Store Thread": {
+      "main": [
+        [
+          {
+            "node": "Group By Thread Id",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get All Messages": {
+      "main": [
+        [
+          {
+            "node": "Filter: Deleted Messages",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter: Deleted Messages": {
+      "main": [
+        [
+          {
+            "node": "Store Messages",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Today's tasks": {
+      "main": [
+        [
+          {
+            "node": "Combine all tasks",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Group By Conversation Id": {
+      "main": [
+        [
+          {
+            "node": "Set Conversation URL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gemini 2.5 Flash": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "PAIST Thread Summariser",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "PAIST Conversation Summariser",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "PAIST Planner",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Combine all tasks": {
+      "main": [
+        [
+          {
+            "node": "Merge Everything",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Store Messages": {
+      "main": [
+        [
+          {
+            "node": "Group By Conversation Id",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter Deleted Threads": {
+      "main": [
+        [
+          {
+            "node": "Store Thread",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PAIST Conversation Summariser": {
+      "main": [
+        [
+          {
+            "node": "Merge Summary and Conversation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PAIST Thread Summariser": {
+      "main": [
+        [
+          {
+            "node": "Merge Summary and Thread",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Thread Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "PAIST Thread Summariser",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Conversation Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "PAIST Conversation Summariser",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PAIST Planner": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Conversation URL": {
+      "main": [
+        [
+          {
+            "node": "PAIST Conversation Summariser",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge Summary and Conversation",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge Summary and Conversation": {
+      "main": [
+        [
+          {
+            "node": "Combine All Conversations",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Combine All Conversations": {
+      "main": [
+        [
+          {
+            "node": "Merge Everything",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Set Thread URL": {
+      "main": [
+        [
+          {
+            "node": "PAIST Thread Summariser",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge Summary and Thread",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge Summary and Thread": {
+      "main": [
+        [
+          {
+            "node": "Combine All Threads",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Combine All Threads": {
+      "main": [
+        [
+          {
+            "node": "Merge Everything",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Merge Everything": {
+      "main": [
+        [
+          {
+            "node": "PAIST Planner",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Variables",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If Threads": {
+      "main": [
+        [
+          {
+            "node": "Get Thread Comments",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Merge Everything",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "If Conversations": {
+      "main": [
+        [
+          {
+            "node": "Get All Messages",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Merge Everything",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "99197dea-b90b-489d-9ce3-1b07db1ee6bb",
+  "triggerCount": 1,
+  "tags": [],
+  "shared": [
+    {
+      "createdAt": "2025-10-27T18:19:48.835Z",
+      "updatedAt": "2025-10-27T18:19:48.835Z",
+      "role": "workflow:owner",
+      "workflowId": "ekNtCLOwi49Vywr9",
+      "projectId": "rteHPQr0gQHvUBnH",
+      "project": {
+        "createdAt": "2024-06-07T07:01:15.292Z",
+        "updatedAt": "2024-06-07T07:01:15.292Z",
+        "id": "rteHPQr0gQHvUBnH",
+        "name": "Gonçalo Silva <goncalossilva@gmail.com>",
+        "type": "personal",
+        "icon": null,
+        "description": null
+      }
+    }
+  ]
+}
