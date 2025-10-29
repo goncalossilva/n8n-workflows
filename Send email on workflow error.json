@@ -1,6 +1,6 @@
 {
-  "createdAt": "2022-05-15T23:08:05.108Z",
   "updatedAt": "2023-04-15T23:39:03.000Z",
+  "createdAt": "2022-05-15T23:08:05.108Z",
   "id": "12",
   "name": "Send email on workflow error",
   "active": false,
@@ -77,14 +77,14 @@
   "tags": [],
   "shared": [
     {
-      "createdAt": "2022-05-15T23:08:05.570Z",
       "updatedAt": "2022-05-15T23:08:05.570Z",
+      "createdAt": "2022-05-15T23:08:05.570Z",
       "role": "workflow:owner",
       "workflowId": "12",
       "projectId": "rteHPQr0gQHvUBnH",
       "project": {
-        "createdAt": "2024-06-07T07:01:15.292Z",
         "updatedAt": "2024-06-07T07:01:15.292Z",
+        "createdAt": "2024-06-07T07:01:15.292Z",
         "id": "rteHPQr0gQHvUBnH",
         "name": "Gonçalo Silva <goncalossilva@gmail.com>",
         "type": "personal",
