@@ -1,6 +1,6 @@
 {
-  "createdAt": "2025-10-27T18:19:48.833Z",
   "updatedAt": "2025-10-27T18:29:14.000Z",
+  "createdAt": "2025-10-27T18:19:48.833Z",
   "id": "ekNtCLOwi49Vywr9",
   "name": "Doist Summary",
   "active": true,
@@ -1268,14 +1268,14 @@
   "tags": [],
   "shared": [
     {
-      "createdAt": "2025-10-27T18:19:48.835Z",
       "updatedAt": "2025-10-27T18:19:48.835Z",
+      "createdAt": "2025-10-27T18:19:48.835Z",
       "role": "workflow:owner",
       "workflowId": "ekNtCLOwi49Vywr9",
       "projectId": "rteHPQr0gQHvUBnH",
       "project": {
-        "createdAt": "2024-06-07T07:01:15.292Z",
         "updatedAt": "2024-06-07T07:01:15.292Z",
+        "createdAt": "2024-06-07T07:01:15.292Z",
         "id": "rteHPQr0gQHvUBnH",
         "name": "Gonçalo Silva <goncalossilva@gmail.com>",
         "type": "personal",
