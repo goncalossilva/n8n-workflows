@@ -1,6 +1,6 @@
 {
-  "createdAt": "2022-04-18T15:12:30.551Z",
   "updatedAt": "2025-05-22T00:48:27.000Z",
+  "createdAt": "2022-04-18T15:12:30.551Z",
   "id": "1",
   "name": "Add completed tasks with @snippets to Snippets project in Todoist",
   "active": false,
@@ -162,14 +162,14 @@
   "tags": [],
   "shared": [
     {
-      "createdAt": "2022-04-18T15:12:30.565Z",
       "updatedAt": "2022-04-18T15:12:30.565Z",
+      "createdAt": "2022-04-18T15:12:30.565Z",
       "role": "workflow:owner",
       "workflowId": "1",
       "projectId": "rteHPQr0gQHvUBnH",
       "project": {
-        "createdAt": "2024-06-07T07:01:15.292Z",
         "updatedAt": "2024-06-07T07:01:15.292Z",
+        "createdAt": "2024-06-07T07:01:15.292Z",
         "id": "rteHPQr0gQHvUBnH",
         "name": "Gonçalo Silva <goncalossilva@gmail.com>",
         "type": "personal",
