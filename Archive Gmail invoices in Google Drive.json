@@ -1,6 +1,6 @@
 {
-  "createdAt": "2022-04-25T21:40:28.865Z",
   "updatedAt": "2025-05-22T00:49:31.000Z",
+  "createdAt": "2022-04-25T21:40:28.865Z",
   "id": "9",
   "name": "Archive Gmail invoices in Google Drive",
   "active": false,
@@ -296,14 +296,14 @@
   "tags": [],
   "shared": [
     {
-      "createdAt": "2022-04-25T21:40:29.195Z",
       "updatedAt": "2022-04-25T21:40:29.195Z",
+      "createdAt": "2022-04-25T21:40:29.195Z",
       "role": "workflow:owner",
       "workflowId": "9",
       "projectId": "rteHPQr0gQHvUBnH",
       "project": {
-        "createdAt": "2024-06-07T07:01:15.292Z",
         "updatedAt": "2024-06-07T07:01:15.292Z",
+        "createdAt": "2024-06-07T07:01:15.292Z",
         "id": "rteHPQr0gQHvUBnH",
         "name": "Gonçalo Silva <goncalossilva@gmail.com>",
         "type": "personal",
