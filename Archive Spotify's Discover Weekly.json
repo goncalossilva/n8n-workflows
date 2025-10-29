@@ -1,6 +1,6 @@
 {
-  "createdAt": "2022-04-19T17:51:25.134Z",
   "updatedAt": "2025-05-22T00:49:37.000Z",
+  "createdAt": "2022-04-19T17:51:25.134Z",
   "id": "4",
   "name": "Archive Spotify's Discover Weekly",
   "active": false,
@@ -184,14 +184,14 @@
   "tags": [],
   "shared": [
     {
-      "createdAt": "2022-04-19T17:51:25.148Z",
       "updatedAt": "2022-04-19T17:51:25.148Z",
+      "createdAt": "2022-04-19T17:51:25.148Z",
       "role": "workflow:owner",
       "workflowId": "4",
       "projectId": "rteHPQr0gQHvUBnH",
       "project": {
-        "createdAt": "2024-06-07T07:01:15.292Z",
         "updatedAt": "2024-06-07T07:01:15.292Z",
+        "createdAt": "2024-06-07T07:01:15.292Z",
         "id": "rteHPQr0gQHvUBnH",
         "name": "Gonçalo Silva <goncalossilva@gmail.com>",
         "type": "personal",
