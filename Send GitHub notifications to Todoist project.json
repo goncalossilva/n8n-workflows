@@ -1,6 +1,6 @@
 {
-  "createdAt": "2022-04-18T21:51:26.303Z",
   "updatedAt": "2023-07-09T23:35:12.000Z",
+  "createdAt": "2022-04-18T21:51:26.303Z",
   "id": "3",
   "name": "Send GitHub notifications to Todoist project",
   "active": false,
@@ -228,14 +228,14 @@
   "tags": [],
   "shared": [
     {
-      "createdAt": "2022-04-18T21:51:26.314Z",
       "updatedAt": "2022-04-18T21:51:26.314Z",
+      "createdAt": "2022-04-18T21:51:26.314Z",
       "role": "workflow:owner",
       "workflowId": "3",
       "projectId": "rteHPQr0gQHvUBnH",
       "project": {
-        "createdAt": "2024-06-07T07:01:15.292Z",
         "updatedAt": "2024-06-07T07:01:15.292Z",
+        "createdAt": "2024-06-07T07:01:15.292Z",
         "id": "rteHPQr0gQHvUBnH",
         "name": "Gonçalo Silva <goncalossilva@gmail.com>",
         "type": "personal",
