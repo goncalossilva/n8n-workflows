@@ -3,6 +3,7 @@
   "createdAt": "2025-10-27T18:19:48.833Z",
   "id": "ekNtCLOwi49Vywr9",
   "name": "Doist Summary",
+  "description": null,
   "active": true,
   "isArchived": false,
   "nodes": [
@@ -1264,7 +1265,7 @@
   },
   "pinData": {},
   "versionId": "99197dea-b90b-489d-9ce3-1b07db1ee6bb",
-  "versionCounter": 5,
+  "versionCounter": 6,
   "triggerCount": 1,
   "tags": [],
   "shared": [
