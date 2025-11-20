@@ -3,6 +3,7 @@
   "createdAt": "2022-04-30T23:03:42.843Z",
   "id": "10",
   "name": "Backup workflows",
+  "description": null,
   "active": true,
   "isArchived": false,
   "nodes": [
@@ -530,7 +531,7 @@
   "meta": null,
   "pinData": null,
   "versionId": "602f7455-6866-4744-bdec-8f2342211743",
-  "versionCounter": 5,
+  "versionCounter": 6,
   "triggerCount": 1,
   "tags": [],
   "shared": [
