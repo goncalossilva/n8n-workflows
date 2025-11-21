@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2025-10-27T18:29:14.000Z",
+  "updatedAt": "2025-11-20T02:03:39.000Z",
   "createdAt": "2025-10-27T18:19:48.833Z",
   "id": "ekNtCLOwi49Vywr9",
   "name": "Doist Summary",
@@ -12,10 +12,10 @@
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        -416,
-        416
+        -3376,
+        96
       ],
-      "id": "23a37b66-906d-433f-89ff-df82d3608d2e",
+      "id": "3d5b5048-1cb9-411c-8d48-08b7fc9bfc43",
       "name": "When clicking ‘Execute workflow’"
     },
     {
@@ -37,10 +37,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        32,
-        416
+        -2928,
+        96
       ],
-      "id": "69edfdf0-472d-4e13-bf2e-8bda71f1b052",
+      "id": "0cd5fead-d5a0-4620-bc97-23a0f1481087",
       "name": "Get Unread Conversations",
       "alwaysOutputData": true,
       "credentials": {
@@ -59,10 +59,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -192,
-        416
+        -3152,
+        96
       ],
-      "id": "0fbf27dd-8a09-4166-96e3-e2b1d55e5508",
+      "id": "e408555b-051f-4d45-9c52-847e83a8e59a",
       "name": "Variables"
     },
     {
@@ -84,10 +84,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        32,
-        640
+        -2928,
+        320
       ],
-      "id": "e86fd9eb-4304-4ff1-b657-4a3c3a007d3c",
+      "id": "9591d794-dd48-41d8-a46c-5fbc4cc941e3",
       "name": "Get Unread threads",
       "alwaysOutputData": true,
       "credentials": {
@@ -120,10 +120,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        464,
-        640
+        -2496,
+        320
       ],
-      "id": "dec8c1f9-458e-4c67-9315-c036c8157cbb",
+      "id": "e9d67044-1b64-48aa-b097-cbe35939f704",
       "name": "Get Thread Comments",
       "credentials": {
         "twistOAuth2Api": {
@@ -148,10 +148,10 @@
       "type": "n8n-nodes-base.summarize",
       "typeVersion": 1.1,
       "position": [
-        1120,
-        640
+        -1840,
+        320
       ],
-      "id": "66445b44-65eb-40ae-a918-6d4f694befa5",
+      "id": "57c3e85f-ed29-413a-bbf8-d83d79995a4c",
       "name": "Group By Thread Id"
     },
     {
@@ -195,10 +195,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        896,
-        640
+        -2064,
+        320
       ],
-      "id": "41735819-4a01-495e-bd65-65c399954855",
+      "id": "a3f48268-8fd1-4f9d-ae6a-594e069e7c07",
       "name": "Store Thread"
     },
     {
@@ -212,10 +212,10 @@
       "type": "n8n-nodes-base.todoist",
       "typeVersion": 2.1,
       "position": [
-        32,
-        192
+        -2928,
+        -128
       ],
-      "id": "43f75c6b-5e48-483f-a6aa-9201db25ba41",
+      "id": "b279abcb-c767-4b2c-809f-00e8363ac5d7",
       "name": "Today's tasks",
       "credentials": {
         "todoistOAuth2Api": {
@@ -247,10 +247,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        464,
-        416
+        -2496,
+        96
       ],
-      "id": "bd7db68a-16c0-48c0-91c7-26f22b15449a",
+      "id": "50776a48-7ffc-474e-a4a3-cbffeb2aa8a5",
       "name": "Get All Messages",
       "credentials": {
         "twistOAuth2Api": {
@@ -275,10 +275,10 @@
       "type": "n8n-nodes-base.summarize",
       "typeVersion": 1.1,
       "position": [
-        1120,
-        416
+        -1840,
+        96
       ],
-      "id": "87bae870-cace-4acf-8ab9-af3ae6d75e25",
+      "id": "9a34d702-4aac-454a-b794-6e7e657cde27",
       "name": "Group By Conversation Id"
     },
     {
@@ -309,10 +309,10 @@
       "type": "n8n-nodes-base.filter",
       "typeVersion": 2.2,
       "position": [
-        672,
-        416
+        -2288,
+        96
       ],
-      "id": "fc17d978-40cd-47d9-944d-789dc1675f66",
+      "id": "783c0e48-7cc7-4804-8154-a3d24705dd85",
       "name": "Filter: Deleted Messages"
     },
     {
@@ -322,10 +322,10 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
       "typeVersion": 1,
       "position": [
-        1504,
-        896
+        -1456,
+        576
       ],
-      "id": "8cce8212-f62b-4820-b871-7be15cb91ff1",
+      "id": "44958a0e-447d-4441-864d-1c2b23329bd2",
       "name": "Gemini 2.5 Flash",
       "credentials": {
         "googlePalmApi": {
@@ -345,10 +345,10 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 2.2,
       "position": [
-        2592,
-        448
+        -368,
+        128
       ],
-      "id": "3b0484f4-87f5-45ea-864a-d91080b008e4",
+      "id": "26dbe341-17b9-4806-9112-3561fe74545e",
       "name": "PAIST Planner"
     },
     {
@@ -359,10 +359,10 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
       "typeVersion": 1,
       "position": [
-        2592,
-        656
+        -368,
+        336
       ],
-      "id": "8e19d19a-b9ce-4fb8-b960-567ecb273e97",
+      "id": "25cfd8c0-f59f-44ff-b125-4e66e2681d24",
       "name": "Google Gemini Chat Model1",
       "credentials": {
         "googlePalmApi": {
@@ -380,10 +380,10 @@
       "type": "n8n-nodes-base.aggregate",
       "typeVersion": 1,
       "position": [
-        2112,
-        192
+        -848,
+        -128
       ],
-      "id": "ce454a13-9a70-4c60-9baf-ced302439111",
+      "id": "2b77756e-d08e-43fa-85b6-a6863eee4090",
       "name": "Combine all tasks"
     },
     {
@@ -421,10 +421,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        896,
-        416
+        -2064,
+        96
       ],
-      "id": "08bf5329-3a5e-4f37-a0f9-3229dd803da9",
+      "id": "a9aab5ae-c57c-4a60-a023-ed032b956e0b",
       "name": "Store Messages"
     },
     {
@@ -455,10 +455,10 @@
       "type": "n8n-nodes-base.filter",
       "typeVersion": 2.2,
       "position": [
-        672,
-        640
+        -2288,
+        320
       ],
-      "id": "24f466e4-8c99-4e82-afe7-80385b2f10cd",
+      "id": "3417f7ef-9e3d-44e8-b503-90e61bed6ae3",
       "name": "Filter Deleted Threads"
     },
     {
@@ -473,10 +473,10 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 2.2,
       "position": [
-        1584,
-        416
+        -1376,
+        96
       ],
-      "id": "2753f054-a805-486d-8199-56d4ef2ac89f",
+      "id": "4b70df0e-3a84-48ed-a2f7-ff3a53827e62",
       "name": "PAIST Conversation Summariser",
       "retryOnFail": true
     },
@@ -492,10 +492,10 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 2.2,
       "position": [
-        1584,
-        640
+        -1376,
+        320
       ],
-      "id": "2531cbe8-a09f-4ed1-be64-0256cb2a88dd",
+      "id": "fdd02683-efe4-405a-9166-a964c127961f",
       "name": "PAIST Thread Summariser",
       "retryOnFail": true
     },
@@ -506,10 +506,10 @@
       "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
       "typeVersion": 1.3,
       "position": [
-        1728,
-        896
+        -1232,
+        576
       ],
-      "id": "92f7af26-dac5-4737-ab50-016b0a15560c",
+      "id": "2bfcf521-b5c9-4af9-901c-ba6eb502dbf7",
       "name": "Thread Output Parser"
     },
     {
@@ -519,10 +519,10 @@
       "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
       "typeVersion": 1.3,
       "position": [
-        1888,
-        896
+        -1072,
+        576
       ],
-      "id": "8ec358bf-a1e1-409d-88fe-eae538060dea",
+      "id": "87ac1d83-4640-4fd6-9edf-cd85e24919b3",
       "name": "Conversation Output Parser"
     },
     {
@@ -554,10 +554,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        1328,
-        416
+        -1632,
+        96
       ],
-      "id": "1d89774d-c942-4b90-8426-b83503bd6771",
+      "id": "bad5edd6-3afa-45a0-81b3-b13e9c133eaf",
       "name": "Set Conversation URL"
     },
     {
@@ -569,10 +569,10 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3.2,
       "position": [
-        1936,
-        432
+        -1024,
+        112
       ],
-      "id": "aef166af-859a-42d1-ae2c-a4c28075d071",
+      "id": "941e1182-8c8f-4342-a57a-532500207094",
       "name": "Merge Summary and Conversation"
     },
     {
@@ -584,10 +584,10 @@
       "type": "n8n-nodes-base.aggregate",
       "typeVersion": 1,
       "position": [
-        2112,
-        432
+        -848,
+        112
       ],
-      "id": "da2a8a7f-9152-4d22-842e-b08f272ce09d",
+      "id": "b24467bb-5d52-4489-a5a1-4e57c8106d8d",
       "name": "Combine All Conversations"
     },
     {
@@ -619,10 +619,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        1328,
-        640
+        -1632,
+        320
       ],
-      "id": "41dce55f-c7fb-4e9b-a314-616d77fe6c50",
+      "id": "e2f63482-fa7c-4f00-a50a-dda4adc0a489",
       "name": "Set Thread URL"
     },
     {
@@ -634,10 +634,10 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3.2,
       "position": [
-        1936,
-        640
+        -1024,
+        320
       ],
-      "id": "63355953-74a5-4785-838c-149a30ddd7b8",
+      "id": "f709ea98-6a30-4f7b-bb86-b7de2270486c",
       "name": "Merge Summary and Thread"
     },
     {
@@ -649,10 +649,10 @@
       "type": "n8n-nodes-base.aggregate",
       "typeVersion": 1,
       "position": [
-        2112,
-        640
+        -848,
+        320
       ],
-      "id": "f27a5d4d-cb4b-430f-983f-825889dc374d",
+      "id": "96e16603-d6ac-4c6e-950c-da7961894bc4",
       "name": "Combine All Threads"
     },
     {
@@ -665,10 +665,10 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3.2,
       "position": [
-        2384,
-        432
+        -576,
+        112
       ],
-      "id": "ac614b0c-42ba-49f0-b4ea-4925cff577c8",
+      "id": "777fa4a5-7f7d-421d-b997-71a538bf740e",
       "name": "Merge Everything"
     },
     {
@@ -695,11 +695,47 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        2912,
-        448
+        -48,
+        128
       ],
-      "id": "d01bb259-d62d-4af9-9dd1-74c38b071a97",
+      "id": "219efb5f-936d-458a-8585-f9834db95d00",
       "name": "HTTP Request",
+      "credentials": {
+        "twistOAuth2Api": {
+          "id": "11",
+          "name": "Twist account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.twist.com/api/v3/conversations/mark_unread",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "twistOAuth2Api",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "conversation_id",
+              "value": "={{ $('Variables').item.json.conversation_id }}"
+            },
+            {
+              "name": "message_id",
+              "value": "={{ $json.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        176,
+        128
+      ],
+      "id": "35fb426c-e636-424a-bd6a-ec7690596f5a",
+      "name": "Mark as Unread",
       "credentials": {
         "twistOAuth2Api": {
           "id": "11",
@@ -720,10 +756,10 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -416,
-        624
+        -3376,
+        304
       ],
-      "id": "625c4ca6-87a5-4da4-bda9-57a3f45dfedd",
+      "id": "c56c374a-8bb4-4aa1-8bf0-58576200a7ab",
       "name": "Schedule Trigger"
     },
     {
@@ -754,10 +790,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        256,
-        640
+        -2704,
+        320
       ],
-      "id": "c2f797c5-be4c-4ffd-bd55-0e06c23f5ef0",
+      "id": "c9a342a1-99b5-4691-a293-1ababfb94f53",
       "name": "If Threads"
     },
     {
@@ -788,10 +824,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        256,
-        416
+        -2704,
+        96
       ],
-      "id": "92ff4c6b-04a5-441e-b286-0d711c23ca4f",
+      "id": "28d89e68-cfca-4a79-8ed0-7df17437afa7",
       "name": "If Conversations"
     },
     {
@@ -802,11 +838,11 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -240,
-        272
+        -3200,
+        -48
       ],
       "typeVersion": 1,
-      "id": "73c9a60d-2ef6-4e81-824f-581298e5b983",
+      "id": "e5200823-36b0-4f60-9204-8cb24c6dfad8",
       "name": "Sticky Note1"
     },
     {
@@ -817,11 +853,11 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        0,
-        0
+        -2960,
+        -320
       ],
       "typeVersion": 1,
-      "id": "d68e58b2-efef-473d-b44d-9e7687ffd157",
+      "id": "29ab564d-a027-4338-8ac3-8958c4ed5ba5",
       "name": "Sticky Note2"
     },
     {
@@ -832,11 +868,11 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        432,
-        0
+        -2528,
+        -320
       ],
       "typeVersion": 1,
-      "id": "3c3f1dba-1e00-4624-b0f6-0256ef61e15a",
+      "id": "a893f5a7-3d85-4cd5-a63a-3349b8aaf46d",
       "name": "Sticky Note3"
     },
     {
@@ -847,11 +883,11 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        1536,
-        272
+        -1424,
+        -48
       ],
       "typeVersion": 1,
-      "id": "da9f61c6-d111-4cf7-b564-353240f642c8",
+      "id": "73bca667-687e-4691-87a0-28a76b810091",
       "name": "Sticky Note4"
     },
     {
@@ -862,11 +898,11 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        2544,
-        288
+        -416,
+        -32
       ],
       "typeVersion": 1,
-      "id": "a6efb739-208b-4220-94d8-717841ac3c57",
+      "id": "a6069f78-efaa-4d2f-9e27-6b57d1da9478",
       "name": "Sticky Note"
     }
   ],
@@ -958,28 +994,6 @@
         ]
       ]
     },
-    "Get All Messages": {
-      "main": [
-        [
-          {
-            "node": "Filter: Deleted Messages",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Filter: Deleted Messages": {
-      "main": [
-        [
-          {
-            "node": "Store Messages",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Today's tasks": {
       "main": [
         [
@@ -991,11 +1005,33 @@
         ]
       ]
     },
+    "Get All Messages": {
+      "main": [
+        [
+          {
+            "node": "Filter: Deleted Messages",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
     "Group By Conversation Id": {
       "main": [
         [
           {
             "node": "Set Conversation URL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter: Deleted Messages": {
+      "main": [
+        [
+          {
+            "node": "Store Messages",
             "type": "main",
             "index": 0
           }
@@ -1204,6 +1240,17 @@
         ]
       ]
     },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Mark as Unread",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
     "Schedule Trigger": {
       "main": [
         [
@@ -1264,8 +1311,8 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "99197dea-b90b-489d-9ce3-1b07db1ee6bb",
-  "versionCounter": 6,
+  "versionId": "4084938f-c70a-4b38-9a65-e13ae52e2dc8",
+  "versionCounter": 11,
   "triggerCount": 1,
   "tags": [],
   "shared": [
