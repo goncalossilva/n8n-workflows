@@ -1,0 +1,434 @@
+{
+  "updatedAt": "2025-11-20T02:05:47.000Z",
+  "createdAt": "2025-11-20T01:17:35.647Z",
+  "id": "zpYJO8nYkGZzQ0Qh",
+  "name": "Engineering Pulse",
+  "description": null,
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "f0586e7f-f402-4597-ac4c-6d2f22eb5113",
+      "name": "When clicking ‘Execute workflow’",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        624,
+        -32
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "config_target_conv",
+              "name": "target_conversation_id",
+              "value": "146676",
+              "type": "string",
+              "hint": "The ID of the DM where the report goes"
+            },
+            {
+              "id": "config_channel",
+              "name": "monitor_channel_id",
+              "value": "1290",
+              "type": "string",
+              "hint": "Doist Snippets Channel ID"
+            },
+            {
+              "id": "config_teams",
+              "name": "snippet_teams",
+              "value": "- Android Snippets\n- Apple Snippets\n- Frontend Snippets\n- Backend Snippets\n- Platform Snippets",
+              "type": "string",
+              "hint": "List of thread titles to find (with dashes)"
+            },
+            {
+              "id": "config_reports",
+              "name": "direct_reports",
+              "value": "- Rasto\n- Jaime\n- Henning Muszynski\n- Anton\n- Jacobo de Vera\n- Alex Rodrigues",
+              "type": "string",
+              "hint": "List of people to highlight"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "af723a03-f6d7-4224-8c04-d04f3731a8f8",
+      "name": "Configuration",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        832,
+        -32
+      ],
+      "notes": "👇 EDIT SETTINGS HERE"
+    },
+    {
+      "parameters": {
+        "url": "https://api.twist.com/api/v3/threads/get",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "twistOAuth2Api",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "channel_id",
+              "value": "={{ $json.monitor_channel_id }}"
+            },
+            {
+              "name": "limit",
+              "value": "50"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a3235c7f-3bb2-47d8-9573-fc14406a0b35",
+      "name": "Get Recent Threads",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1056,
+        -32
+      ],
+      "credentials": {
+        "twistOAuth2Api": {
+          "id": "11",
+          "name": "Twist account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// FIX: Use .first() to ignore lineage issues since Config only has 1 item\nconst configNode = $('Configuration').first().json;\n\n// 2. Parse the dashed list (split by newline, remove '- ' prefix)\nconst categories = configNode.snippet_teams\n  .split('\\n')\n  .map(item => item.trim())\n  .filter(item => item.length > 0) // remove empty lines\n  .map(item => item.replace(/^-/, '').trim()); // remove dash\n\nconst threads = items.map(item => item.json);\nconst selectedThreads = [];\n\n// 3. For each category, find the FIRST (newest) thread that matches the title\nfor (const category of categories) {\n  const match = threads.find(t => t.title && t.title.includes(category));\n  if (match) {\n    selectedThreads.push({\n      json: {\n        team: category.replace(' Snippets', ''), // Clean name: 'Android'\n        thread_id: match.id,\n        title: match.title,\n        url: `https://twist.com/a/${match.workspace_id}/ch/${match.channel_id}/t/${match.id}`\n      }\n    });\n  }\n}\n\nreturn selectedThreads;"
+      },
+      "id": "3cd907ac-2241-4414-bae2-e823c98ecc4c",
+      "name": "Filter Latest per Team",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1264,
+        -32
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://api.twist.com/api/v3/comments/get",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "twistOAuth2Api",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "thread_id",
+              "value": "={{ $json.thread_id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "0274bb79-4ee9-4f11-9dd2-10debc3a817b",
+      "name": "Get Snippets (Comments)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1488,
+        -32
+      ],
+      "credentials": {
+        "twistOAuth2Api": {
+          "id": "11",
+          "name": "Twist account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "destinationFieldName": "all_snippets",
+        "options": {}
+      },
+      "id": "27823510-364f-4b79-8305-bd43859397d9",
+      "name": "Combine All Data",
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        1712,
+        -32
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "96204f66-6e6f-42de-80a0-f5a668d9d019",
+      "name": "Gemini 2.5 Flash",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        1904,
+        192
+      ],
+      "credentials": {
+        "googlePalmApi": {
+          "id": "pghrD0vRol1swXjM",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ JSON.stringify($json.all_snippets) }}",
+        "options": {
+          "systemMessage": "={{ \"You are an Engineering Manager's assistant. You will receive a JSON list of comments from weekly 'Snippet' threads.\\n\\nYour Goal: Create a Markdown summary.\\n\\n### Section 1: 🌍 Engineering Pulse\\n- Synthesize the updates across ALL teams into a cohesive and succint narrative.\\n- **Attribution:** You MUST include the **first name** of the engineers involved in parentheses after their specific contribution. Example: '...implemented the new onboarding flow (John, Sarah).'\\n- Focus on high-impact projects, notable wins, blockers, or interesting cross-team initiatives.\\n- Keep this high-level and in prose format.\\n\\n### Section 2: 💎 My Direct Reports\\n- You must look specifically for updates from these authors:\\n\" + $('Configuration').first().json.direct_reports + \"\\n\\n- For each of these people found, provide a detailed bulleted list of what they worked on and plan to work on.\\n- If they mention blockers or help needed, highlight that with a 🚨 emoji.\\n- If one of these people is missing from the input, note it.\\n\\n### Input Format\\nYou will receive a JSON array where each item contains 'content' (the snippet) and 'creator_name' (the author).\\n\\n### Output Style\\n- Clean Markdown.\\n- Professional but conversational tone.\\n- No preamble, just the report.\" }}"
+        }
+      },
+      "id": "329c93e4-9e2a-45c9-ad03-17860cbad94f",
+      "name": "Generate Snippet Report",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        1936,
+        -32
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.twist.com/api/v3/conversation_messages/add",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "twistOAuth2Api",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "conversation_id",
+              "value": "={{ $('Configuration').first().json.target_conversation_id }}"
+            },
+            {
+              "name": "content",
+              "value": "={{ $json.output }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "70115142-e008-4030-8064-97a11432d460",
+      "name": "Post to Twist",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2304,
+        -32
+      ],
+      "credentials": {
+        "twistOAuth2Api": {
+          "id": "11",
+          "name": "Twist account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.twist.com/api/v3/conversations/mark_unread",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "twistOAuth2Api",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "conversation_id",
+              "value": "={{ $('Configuration').first().json.target_conversation_id }}"
+            },
+            {
+              "name": "message_id",
+              "value": "={{ $json.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a252e9ae-f3e8-4587-a401-ee4ad16b26b5",
+      "name": "Mark as Unread",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2528,
+        -32
+      ],
+      "credentials": {
+        "twistOAuth2Api": {
+          "id": "11",
+          "name": "Twist account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 9 * * 4"
+            }
+          ]
+        }
+      },
+      "id": "df1f5da2-7661-4194-8b75-90b58947dcdf",
+      "name": "Every Thursday at 9am",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        624,
+        176
+      ]
+    }
+  ],
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Configuration",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Configuration": {
+      "main": [
+        [
+          {
+            "node": "Get Recent Threads",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Recent Threads": {
+      "main": [
+        [
+          {
+            "node": "Filter Latest per Team",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter Latest per Team": {
+      "main": [
+        [
+          {
+            "node": "Get Snippets (Comments)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Snippets (Comments)": {
+      "main": [
+        [
+          {
+            "node": "Combine All Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Combine All Data": {
+      "main": [
+        [
+          {
+            "node": "Generate Snippet Report",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gemini 2.5 Flash": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Generate Snippet Report",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Snippet Report": {
+      "main": [
+        [
+          {
+            "node": "Post to Twist",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Post to Twist": {
+      "main": [
+        [
+          {
+            "node": "Mark as Unread",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Every Thursday at 9am": {
+      "main": [
+        [
+          {
+            "node": "Configuration",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": {
+    "node:Every Thursday at 9am": {
+      "recurrenceRules": []
+    }
+  },
+  "meta": null,
+  "pinData": {},
+  "versionId": "14a48b19-b11b-4d09-9dcb-50e4ba807caf",
+  "versionCounter": 25,
+  "triggerCount": 1,
+  "tags": [],
+  "shared": [
+    {
+      "updatedAt": "2025-11-20T01:17:35.650Z",
+      "createdAt": "2025-11-20T01:17:35.650Z",
+      "role": "workflow:owner",
+      "workflowId": "zpYJO8nYkGZzQ0Qh",
+      "projectId": "rteHPQr0gQHvUBnH",
+      "project": {
+        "updatedAt": "2024-06-07T07:01:15.292Z",
+        "createdAt": "2024-06-07T07:01:15.292Z",
+        "id": "rteHPQr0gQHvUBnH",
+        "name": "Gonçalo Silva <goncalossilva@gmail.com>",
+        "type": "personal",
+        "icon": null,
+        "description": null
+      }
+    }
+  ]
+}
