@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2025-11-20T02:05:47.000Z",
+  "updatedAt": "2025-11-28T20:31:30.000Z",
   "createdAt": "2025-11-20T01:17:35.647Z",
   "id": "zpYJO8nYkGZzQ0Qh",
   "name": "Engineering Pulse",
@@ -272,13 +272,13 @@
           "interval": [
             {
               "field": "cronExpression",
-              "expression": "0 9 * * 4"
+              "expression": "30 10 * * 4"
             }
           ]
         }
       },
       "id": "df1f5da2-7661-4194-8b75-90b58947dcdf",
-      "name": "Every Thursday at 9am",
+      "name": "Every Thursday Morning",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
@@ -387,7 +387,7 @@
         ]
       ]
     },
-    "Every Thursday at 9am": {
+    "Every Thursday Morning": {
       "main": [
         [
           {
@@ -405,12 +405,15 @@
   "staticData": {
     "node:Every Thursday at 9am": {
       "recurrenceRules": []
+    },
+    "node:Every Thursday Morning": {
+      "recurrenceRules": []
     }
   },
   "meta": null,
   "pinData": {},
-  "versionId": "14a48b19-b11b-4d09-9dcb-50e4ba807caf",
-  "versionCounter": 32,
+  "versionId": "05cb29b1-b227-4334-b351-8a61a3319528",
+  "versionCounter": 35,
   "triggerCount": 1,
   "tags": [],
   "shared": [
