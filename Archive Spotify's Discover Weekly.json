@@ -179,28 +179,32 @@
   },
   "staticData": null,
   "meta": null,
+  "nodeGroups": [],
   "pinData": {},
   "versionId": "72f0417e-bc57-4fa9-98d5-320581f9fa2a",
   "activeVersionId": null,
   "versionCounter": 1,
   "triggerCount": 1,
+  "sourceWorkflowId": null,
   "tags": [],
   "shared": [
     {
-      "updatedAt": "2022-04-19T17:51:25.148Z",
-      "createdAt": "2022-04-19T17:51:25.148Z",
       "role": "workflow:owner",
       "workflowId": "4",
       "projectId": "rteHPQr0gQHvUBnH",
       "project": {
-        "updatedAt": "2024-06-07T07:01:15.292Z",
-        "createdAt": "2024-06-07T07:01:15.292Z",
         "id": "rteHPQr0gQHvUBnH",
         "name": "Gonçalo Silva <goncalossilva@gmail.com>",
         "type": "personal",
         "icon": null,
-        "description": null
-      }
+        "description": null,
+        "customTelemetryTags": [],
+        "creatorId": "1a4fc95a-7450-4288-aed0-0a115800dd53",
+        "createdAt": "2024-06-07T07:01:15.292Z",
+        "updatedAt": "2024-06-07T07:01:15.292Z"
+      },
+      "createdAt": "2022-04-19T17:51:25.148Z",
+      "updatedAt": "2022-04-19T17:51:25.148Z"
     }
   ]
 }
