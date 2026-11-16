@@ -1,10 +1,10 @@
 {
-  "updatedAt": "2025-11-20T02:03:39.000Z",
+  "updatedAt": "2026-02-18T18:59:55.791Z",
   "createdAt": "2025-10-27T18:19:48.833Z",
   "id": "ekNtCLOwi49Vywr9",
   "name": "Doist Summary",
   "description": null,
-  "active": true,
+  "active": false,
   "isArchived": false,
   "nodes": [
     {
@@ -200,29 +200,6 @@
       ],
       "id": "a3f48268-8fd1-4f9d-ae6a-594e069e7c07",
       "name": "Store Thread"
-    },
-    {
-      "parameters": {
-        "authentication": "oAuth2",
-        "operation": "getAll",
-        "filters": {
-          "filter": "={{ $json.todoist_filter }}"
-        }
-      },
-      "type": "n8n-nodes-base.todoist",
-      "typeVersion": 2.1,
-      "position": [
-        -2928,
-        -128
-      ],
-      "id": "b279abcb-c767-4b2c-809f-00e8363ac5d7",
-      "name": "Today's tasks",
-      "credentials": {
-        "todoistOAuth2Api": {
-          "id": "6",
-          "name": "Todoist account"
-        }
-      }
     },
     {
       "parameters": {
@@ -748,7 +725,8 @@
         "rule": {
           "interval": [
             {
-              "triggerAtHour": 10
+              "field": "cronExpression",
+              "expression": "0 10 * * 1-5"
             }
           ]
         }
@@ -904,6 +882,27 @@
       "typeVersion": 1,
       "id": "a6069f78-efaa-4d2f-9e27-6b57d1da9478",
       "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "operation": "getAll",
+        "filters": {}
+      },
+      "type": "n8n-nodes-base.todoist",
+      "typeVersion": 2.2,
+      "position": [
+        -2928,
+        -128
+      ],
+      "id": "126ab4e6-3755-439e-896a-42d6f68c933e",
+      "name": "Get many tasks",
+      "credentials": {
+        "todoistOAuth2Api": {
+          "id": "6",
+          "name": "Todoist account"
+        }
+      }
     }
   ],
   "connections": {
@@ -943,7 +942,7 @@
             "index": 0
           },
           {
-            "node": "Today's tasks",
+            "node": "Get many tasks",
             "type": "main",
             "index": 0
           }
@@ -988,17 +987,6 @@
         [
           {
             "node": "Group By Thread Id",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Today's tasks": {
-      "main": [
-        [
-          {
-            "node": "Combine all tasks",
             "type": "main",
             "index": 0
           }
@@ -1297,6 +1285,17 @@
           }
         ]
       ]
+    },
+    "Get many tasks": {
+      "main": [
+        [
+          {
+            "node": "Combine all tasks",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "settings": {
@@ -1310,28 +1309,32 @@
   "meta": {
     "templateCredsSetupCompleted": true
   },
+  "nodeGroups": [],
   "pinData": {},
-  "versionId": "4084938f-c70a-4b38-9a65-e13ae52e2dc8",
-  "activeVersionId": "4084938f-c70a-4b38-9a65-e13ae52e2dc8",
-  "versionCounter": 23,
+  "versionId": "6e4dff45-107f-4d0e-84a7-477507876c96",
+  "activeVersionId": null,
+  "versionCounter": 81,
   "triggerCount": 1,
+  "sourceWorkflowId": null,
   "tags": [],
   "shared": [
     {
-      "updatedAt": "2025-10-27T18:19:48.835Z",
-      "createdAt": "2025-10-27T18:19:48.835Z",
       "role": "workflow:owner",
       "workflowId": "ekNtCLOwi49Vywr9",
       "projectId": "rteHPQr0gQHvUBnH",
       "project": {
-        "updatedAt": "2024-06-07T07:01:15.292Z",
-        "createdAt": "2024-06-07T07:01:15.292Z",
         "id": "rteHPQr0gQHvUBnH",
         "name": "Gonçalo Silva <goncalossilva@gmail.com>",
         "type": "personal",
         "icon": null,
-        "description": null
-      }
+        "description": null,
+        "customTelemetryTags": [],
+        "creatorId": "1a4fc95a-7450-4288-aed0-0a115800dd53",
+        "createdAt": "2024-06-07T07:01:15.292Z",
+        "updatedAt": "2024-06-07T07:01:15.292Z"
+      },
+      "createdAt": "2025-10-27T18:19:48.835Z",
+      "updatedAt": "2025-10-27T18:19:48.835Z"
     }
   ]
 }
