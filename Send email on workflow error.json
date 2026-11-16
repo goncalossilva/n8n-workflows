@@ -4,7 +4,7 @@
   "id": "12",
   "name": "Send email on workflow error",
   "description": null,
-  "active": false,
+  "active": true,
   "isArchived": false,
   "nodes": [
     {
@@ -72,28 +72,32 @@
   "settings": {},
   "staticData": null,
   "meta": null,
+  "nodeGroups": [],
   "pinData": null,
   "versionId": "66ecc98d-b896-4ce3-9f50-a839d6774b23",
-  "activeVersionId": null,
-  "versionCounter": 1,
+  "activeVersionId": "66ecc98d-b896-4ce3-9f50-a839d6774b23",
+  "versionCounter": 18,
   "triggerCount": 0,
+  "sourceWorkflowId": null,
   "tags": [],
   "shared": [
     {
-      "updatedAt": "2022-05-15T23:08:05.570Z",
-      "createdAt": "2022-05-15T23:08:05.570Z",
       "role": "workflow:owner",
       "workflowId": "12",
       "projectId": "rteHPQr0gQHvUBnH",
       "project": {
-        "updatedAt": "2024-06-07T07:01:15.292Z",
-        "createdAt": "2024-06-07T07:01:15.292Z",
         "id": "rteHPQr0gQHvUBnH",
         "name": "Gonçalo Silva <goncalossilva@gmail.com>",
         "type": "personal",
         "icon": null,
-        "description": null
-      }
+        "description": null,
+        "customTelemetryTags": [],
+        "creatorId": "1a4fc95a-7450-4288-aed0-0a115800dd53",
+        "createdAt": "2024-06-07T07:01:15.292Z",
+        "updatedAt": "2024-06-07T07:01:15.292Z"
+      },
+      "createdAt": "2022-05-15T23:08:05.570Z",
+      "updatedAt": "2022-05-15T23:08:05.570Z"
     }
   ]
 }
