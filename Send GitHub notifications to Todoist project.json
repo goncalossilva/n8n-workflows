@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2023-07-09T23:35:12.000Z",
+  "updatedAt": "2026-11-12T19:52:57.448Z",
   "createdAt": "2022-04-18T21:51:26.303Z",
   "id": "3",
   "name": "Send GitHub notifications to Todoist project",
@@ -8,38 +8,49 @@
   "isArchived": false,
   "nodes": [
     {
-      "parameters": {
-        "triggerTimes": {
-          "item": [
-            {
-              "mode": "everyX",
-              "value": 1
-            }
-          ]
-        }
-      },
+      "id": "79afb20e-49e5-47a2-a643-b23fa04849d9",
       "name": "Cron",
-      "type": "n8n-nodes-base.cron",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.4,
       "position": [
         440,
         300
       ],
-      "typeVersion": 1,
-      "id": "79afb20e-49e5-47a2-a643-b23fa04849d9"
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "44 39 */1 * * *"
+            }
+          ]
+        }
+      }
     },
     {
-      "parameters": {},
+      "id": "6c5c273d-46d3-4a86-9147-20d5170b8099",
       "name": "Start",
+      "disabled": true,
       "type": "n8n-nodes-base.start",
       "typeVersion": 1,
       "position": [
         440,
         120
       ],
-      "id": "6c5c273d-46d3-4a86-9147-20d5170b8099",
-      "disabled": true
+      "parameters": {}
     },
     {
+      "id": "dc149d78-4278-4a52-b5bc-452948a82a52",
+      "name": "Todoist",
+      "type": "n8n-nodes-base.todoist",
+      "typeVersion": 1,
+      "retryOnFail": true,
+      "maxTries": 5,
+      "waitBetweenTries": 5000,
+      "position": [
+        1440,
+        100
+      ],
       "parameters": {
         "authentication": "oAuth2",
         "project": "={{$node[\"Set\"].json[\"project_id\"]}}",
@@ -48,17 +59,6 @@
           "description": "={{$json[$position][\"reason\"]}}"
         }
       },
-      "name": "Todoist",
-      "type": "n8n-nodes-base.todoist",
-      "typeVersion": 1,
-      "position": [
-        1440,
-        100
-      ],
-      "retryOnFail": true,
-      "maxTries": 5,
-      "waitBetweenTries": 5000,
-      "id": "dc149d78-4278-4a52-b5bc-452948a82a52",
       "credentials": {
         "todoistOAuth2Api": {
           "id": "6",
@@ -67,6 +67,14 @@
       }
     },
     {
+      "id": "0b514fe5-073d-4848-b197-dfa635ef22b1",
+      "name": "IF",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        1240,
+        300
+      ],
       "parameters": {
         "conditions": {
           "boolean": [
@@ -76,17 +84,17 @@
             }
           ]
         }
-      },
-      "name": "IF",
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 1,
-      "position": [
-        1240,
-        300
-      ],
-      "id": "0b514fe5-073d-4848-b197-dfa635ef22b1"
+      }
     },
     {
+      "id": "ff333814-b076-42f7-bc1c-529607f080fe",
+      "name": "Set",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        640,
+        300
+      ],
       "parameters": {
         "values": {
           "number": [
@@ -97,17 +105,20 @@
           ]
         },
         "options": {}
-      },
-      "name": "Set",
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 1,
-      "position": [
-        640,
-        300
-      ],
-      "id": "ff333814-b076-42f7-bc1c-529607f080fe"
+      }
     },
     {
+      "id": "b3abb418-94df-47d6-b9fc-51643944e4be",
+      "name": "@Get Notifications",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "retryOnFail": true,
+      "maxTries": 5,
+      "waitBetweenTries": 5000,
+      "position": [
+        1040,
+        300
+      ],
       "parameters": {
         "authentication": "oAuth2",
         "url": "https://api.github.com/notifications",
@@ -129,17 +140,6 @@
           ]
         }
       },
-      "name": "@Get Notifications",
-      "type": "n8n-nodes-base.httpRequest",
-      "maxTries": 5,
-      "position": [
-        1040,
-        300
-      ],
-      "retryOnFail": true,
-      "typeVersion": 1,
-      "waitBetweenTries": 5000,
-      "id": "b3abb418-94df-47d6-b9fc-51643944e4be",
       "credentials": {
         "oAuth2Api": {
           "id": "9",
@@ -148,17 +148,19 @@
       }
     },
     {
-      "parameters": {
-        "functionCode": "const date = new Date(new Date().setHours(new Date().getHours() - 1)).toISOString()\nreturn [{json: {since: date}}]"
-      },
+      "id": "810bed37-9c19-4220-846c-9bb171c88bfb",
       "name": "@1hour ago",
-      "type": "n8n-nodes-base.function",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
       "position": [
         840,
         300
       ],
-      "typeVersion": 1,
-      "id": "810bed37-9c19-4220-846c-9bb171c88bfb"
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "language": "javaScript",
+        "jsCode": "const date = new Date(new Date().setHours(new Date().getHours() - 1)).toISOString()\nreturn [{json: {since: date}}]"
+      }
     }
   ],
   "connections": {
@@ -223,28 +225,32 @@
   },
   "staticData": null,
   "meta": null,
+  "nodeGroups": [],
   "pinData": {},
-  "versionId": "ff02572c-df7d-4961-9f89-f075709f75f4",
+  "versionId": "5f33a70d-fce2-4565-b8af-367d6a80166e",
   "activeVersionId": null,
-  "versionCounter": 1,
+  "versionCounter": 2,
   "triggerCount": 1,
+  "sourceWorkflowId": null,
   "tags": [],
   "shared": [
     {
-      "updatedAt": "2022-04-18T21:51:26.314Z",
-      "createdAt": "2022-04-18T21:51:26.314Z",
       "role": "workflow:owner",
       "workflowId": "3",
       "projectId": "rteHPQr0gQHvUBnH",
       "project": {
-        "updatedAt": "2024-06-07T07:01:15.292Z",
-        "createdAt": "2024-06-07T07:01:15.292Z",
         "id": "rteHPQr0gQHvUBnH",
         "name": "Gonçalo Silva <goncalossilva@gmail.com>",
         "type": "personal",
         "icon": null,
-        "description": null
-      }
+        "description": null,
+        "customTelemetryTags": [],
+        "creatorId": "1a4fc95a-7450-4288-aed0-0a115800dd53",
+        "createdAt": "2024-06-07T07:01:15.292Z",
+        "updatedAt": "2024-06-07T07:01:15.292Z"
+      },
+      "createdAt": "2022-04-18T21:51:26.314Z",
+      "updatedAt": "2022-04-18T21:51:26.314Z"
     }
   ]
 }
