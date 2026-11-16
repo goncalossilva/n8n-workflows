@@ -4,7 +4,7 @@
   "id": "zpYJO8nYkGZzQ0Qh",
   "name": "Engineering Pulse",
   "description": null,
-  "active": true,
+  "active": false,
   "isArchived": false,
   "nodes": [
     {
@@ -411,28 +411,32 @@
     }
   },
   "meta": null,
+  "nodeGroups": [],
   "pinData": {},
   "versionId": "05cb29b1-b227-4334-b351-8a61a3319528",
-  "activeVersionId": "05cb29b1-b227-4334-b351-8a61a3319528",
-  "versionCounter": 40,
+  "activeVersionId": null,
+  "versionCounter": 93,
   "triggerCount": 1,
+  "sourceWorkflowId": null,
   "tags": [],
   "shared": [
     {
-      "updatedAt": "2025-11-20T01:17:35.650Z",
-      "createdAt": "2025-11-20T01:17:35.650Z",
       "role": "workflow:owner",
       "workflowId": "zpYJO8nYkGZzQ0Qh",
       "projectId": "rteHPQr0gQHvUBnH",
       "project": {
-        "updatedAt": "2024-06-07T07:01:15.292Z",
-        "createdAt": "2024-06-07T07:01:15.292Z",
         "id": "rteHPQr0gQHvUBnH",
         "name": "Gonçalo Silva <goncalossilva@gmail.com>",
         "type": "personal",
         "icon": null,
-        "description": null
-      }
+        "description": null,
+        "customTelemetryTags": [],
+        "creatorId": "1a4fc95a-7450-4288-aed0-0a115800dd53",
+        "createdAt": "2024-06-07T07:01:15.292Z",
+        "updatedAt": "2024-06-07T07:01:15.292Z"
+      },
+      "createdAt": "2025-11-20T01:17:35.650Z",
+      "updatedAt": "2025-11-20T01:17:35.650Z"
     }
   ]
 }
