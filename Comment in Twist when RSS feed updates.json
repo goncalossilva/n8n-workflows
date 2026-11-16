@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2022-05-15T23:10:31.430Z",
+  "updatedAt": "2026-11-12T19:53:05.362Z",
   "createdAt": "2022-04-19T18:40:40.596Z",
   "id": "5",
   "name": "Comment in Twist when RSS feed updates",
@@ -8,69 +8,81 @@
   "isArchived": false,
   "nodes": [
     {
-      "parameters": {},
+      "id": "7a9c1b04-a4be-4f4f-acea-fd207e052421",
       "name": "Start",
+      "disabled": true,
       "type": "n8n-nodes-base.start",
       "typeVersion": 1,
       "position": [
         260,
         100
       ],
-      "disabled": true,
-      "id": "7a9c1b04-a4be-4f4f-acea-fd207e052421"
+      "parameters": {}
     },
     {
-      "parameters": {
-        "url": "https://doist.dev/rss.xml"
-      },
+      "id": "38b1cd34-9a4a-42f7-94cf-dc4bc7a6f05a",
       "name": "RSS Feed Read",
       "type": "n8n-nodes-base.rssFeedRead",
       "typeVersion": 1,
+      "retryOnFail": true,
+      "maxTries": 5,
+      "waitBetweenTries": 5000,
       "position": [
         460,
         300
       ],
-      "retryOnFail": true,
-      "maxTries": 5,
-      "waitBetweenTries": 5000,
-      "id": "38b1cd34-9a4a-42f7-94cf-dc4bc7a6f05a"
+      "parameters": {
+        "url": "https://doist.dev/rss.xml"
+      }
     },
     {
-      "parameters": {
-        "triggerTimes": {
-          "item": [
-            {
-              "mode": "everyX",
-              "value": 30,
-              "unit": "minutes"
-            },
-            {}
-          ]
-        }
-      },
+      "id": "6beeb905-c2a6-4a37-a868-33c0f90e4d19",
       "name": "Cron",
-      "type": "n8n-nodes-base.cron",
-      "typeVersion": 1,
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.4,
       "position": [
         260,
         300
       ],
-      "id": "6beeb905-c2a6-4a37-a868-33c0f90e4d19"
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "58 */30 * * * *"
+            },
+            {
+              "field": "cronExpression",
+              "expression": "33 0 14 * * *"
+            }
+          ]
+        }
+      }
     },
     {
-      "parameters": {
-        "functionCode": "let newItems = []\n\nconst data = getWorkflowStaticData(\"node\")\nif (data.guids) {\n  newItems = items.filter((i) => !data.guids.includes(i.guid))\n}\ndata.guids = items.map((i) => i.guid)\n\nreturn newItems"
-      },
+      "id": "ed1f90cd-624b-48b7-8b80-a48ff8d8f55f",
       "name": "Function",
-      "type": "n8n-nodes-base.function",
-      "typeVersion": 1,
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
       "position": [
         660,
         300
       ],
-      "id": "ed1f90cd-624b-48b7-8b80-a48ff8d8f55f"
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "language": "javaScript",
+        "jsCode": "const items = $input.all();\n\nlet newItems = []\n\nconst data = $getWorkflowStaticData(\"node\")\nif (data.guids) {\n  newItems = items.filter((i) => !data.guids.includes(i.guid))\n}\ndata.guids = items.map((i) => i.guid)\n\nreturn newItems"
+      }
     },
     {
+      "id": "3124fd7d-521d-411a-b726-dbad9c7401de",
+      "name": "Twist",
+      "type": "n8n-nodes-base.twist",
+      "typeVersion": 1,
+      "position": [
+        860,
+        300
+      ],
       "parameters": {
         "resource": "comment",
         "threadId": "3413522",
@@ -79,20 +91,12 @@
           "send_as_integration": true
         }
       },
-      "name": "Twist",
-      "type": "n8n-nodes-base.twist",
-      "typeVersion": 1,
-      "position": [
-        860,
-        300
-      ],
       "credentials": {
         "twistOAuth2Api": {
           "id": "11",
           "name": "Twist account"
         }
-      },
-      "id": "3124fd7d-521d-411a-b726-dbad9c7401de"
+      }
     }
   ],
   "connections": {
@@ -135,28 +139,32 @@
   },
   "staticData": null,
   "meta": null,
+  "nodeGroups": [],
   "pinData": null,
-  "versionId": "1f40d6df-9f45-4f7c-adf9-a64a534fd630",
+  "versionId": "9cc1652a-3114-4e09-89e3-f23bcb48ce81",
   "activeVersionId": null,
-  "versionCounter": 1,
+  "versionCounter": 2,
   "triggerCount": 0,
+  "sourceWorkflowId": null,
   "tags": [],
   "shared": [
     {
-      "updatedAt": "2022-04-19T18:40:40.609Z",
-      "createdAt": "2022-04-19T18:40:40.609Z",
       "role": "workflow:owner",
       "workflowId": "5",
       "projectId": "rteHPQr0gQHvUBnH",
       "project": {
-        "updatedAt": "2024-06-07T07:01:15.292Z",
-        "createdAt": "2024-06-07T07:01:15.292Z",
         "id": "rteHPQr0gQHvUBnH",
         "name": "Gonçalo Silva <goncalossilva@gmail.com>",
         "type": "personal",
         "icon": null,
-        "description": null
-      }
+        "description": null,
+        "customTelemetryTags": [],
+        "creatorId": "1a4fc95a-7450-4288-aed0-0a115800dd53",
+        "createdAt": "2024-06-07T07:01:15.292Z",
+        "updatedAt": "2024-06-07T07:01:15.292Z"
+      },
+      "createdAt": "2022-04-19T18:40:40.609Z",
+      "updatedAt": "2022-04-19T18:40:40.609Z"
     }
   ]
 }
