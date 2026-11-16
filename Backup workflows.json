@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2023-01-28T07:03:03.000Z",
+  "updatedAt": "2026-11-16T10:10:45.581Z",
   "createdAt": "2022-04-30T23:03:42.843Z",
   "id": "10",
   "name": "Backup workflows",
@@ -8,29 +8,25 @@
   "isArchived": false,
   "nodes": [
     {
-      "parameters": {},
-      "name": "Start",
-      "type": "n8n-nodes-base.start",
-      "typeVersion": 1,
-      "position": [
-        -1260,
-        440
-      ],
-      "disabled": true,
-      "id": "f7201330-6cc4-488f-b99d-8a3e8f01802e"
-    },
-    {
-      "parameters": {},
+      "id": "bdd20f2d-b124-43a6-80ac-e6cf189a0219",
       "name": "Merge",
       "type": "n8n-nodes-base.merge",
+      "typeVersion": 1,
       "position": [
         540,
         620
       ],
-      "typeVersion": 1,
-      "id": "bdd20f2d-b124-43a6-80ac-e6cf189a0219"
+      "parameters": {}
     },
     {
+      "id": "0761e077-d071-4d00-ae2f-d2bba2f37c90",
+      "name": "github_status",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 1,
+      "position": [
+        940,
+        620
+      ],
       "parameters": {
         "dataType": "string",
         "value1": "={{$json[\"github_status\"]}}",
@@ -49,50 +45,50 @@
             }
           ]
         }
-      },
-      "name": "github_status",
-      "type": "n8n-nodes-base.switch",
-      "position": [
-        940,
-        620
-      ],
-      "typeVersion": 1,
-      "id": "0761e077-d071-4d00-ae2f-d2bba2f37c90"
+      }
     },
     {
-      "parameters": {},
+      "id": "0654af3e-2f01-469c-87c7-1fb7bf0d35f0",
       "name": "same",
       "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
       "position": [
         1140,
         420
       ],
-      "typeVersion": 1,
-      "id": "0654af3e-2f01-469c-87c7-1fb7bf0d35f0"
+      "parameters": {}
     },
     {
-      "parameters": {},
+      "id": "6ae1eecf-c498-4c51-9073-a7f37294ba2d",
       "name": "different",
       "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
       "position": [
         1140,
         620
       ],
-      "typeVersion": 1,
-      "id": "6ae1eecf-c498-4c51-9073-a7f37294ba2d"
+      "parameters": {}
     },
     {
-      "parameters": {},
+      "id": "9cd31fe3-c062-4487-bca3-bd9ce61b80c5",
       "name": "new",
       "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
       "position": [
         1140,
         820
       ],
-      "typeVersion": 1,
-      "id": "9cd31fe3-c062-4487-bca3-bd9ce61b80c5"
+      "parameters": {}
     },
     {
+      "id": "298c81d2-b534-4f95-905f-c775bcace24a",
+      "name": "GitHub Edit",
+      "type": "n8n-nodes-base.github",
+      "typeVersion": 1,
+      "position": [
+        1340,
+        620
+      ],
       "parameters": {
         "authentication": "oAuth2",
         "resource": "file",
@@ -103,22 +99,23 @@
         "fileContent": "={{$node[\"isDiffOrNew\"].json[\"n8n_data_stringy\"]}}",
         "commitMessage": "=[N8N Backup] {{JSON.parse($node[\"Move Binary Data\"].json[\"data\"]).name}}.json ({{$json[\"github_status\"]}})"
       },
-      "name": "GitHub Edit",
-      "type": "n8n-nodes-base.github",
-      "position": [
-        1340,
-        620
-      ],
-      "typeVersion": 1,
       "credentials": {
         "githubOAuth2Api": {
           "id": "3",
           "name": "Github account"
         }
       },
-      "id": "298c81d2-b534-4f95-905f-c775bcace24a"
+      "webhookId": "95e712ba-ea23-4dd9-876a-0101e278260e"
     },
     {
+      "id": "3e32318d-2b7c-47ac-bd91-f37e1dce1d0d",
+      "name": "GitHub Create",
+      "type": "n8n-nodes-base.github",
+      "typeVersion": 1,
+      "position": [
+        1340,
+        820
+      ],
       "parameters": {
         "authentication": "oAuth2",
         "resource": "file",
@@ -128,62 +125,49 @@
         "fileContent": "={{$node[\"isDiffOrNew\"].json[\"n8n_data_stringy\"]}}",
         "commitMessage": "=[N8N Backup] {{JSON.parse($node[\"Move Binary Data\"].json[\"data\"]).name}}.json ({{$json[\"github_status\"]}})"
       },
-      "name": "GitHub Create",
-      "type": "n8n-nodes-base.github",
-      "position": [
-        1340,
-        820
-      ],
-      "typeVersion": 1,
       "credentials": {
         "githubOAuth2Api": {
           "id": "3",
           "name": "Github account"
         }
       },
-      "id": "3e32318d-2b7c-47ac-bd91-f37e1dce1d0d"
+      "webhookId": "3c25ef9c-7e15-4650-bba6-7356b1296fd9"
     },
     {
-      "parameters": {
-        "functionCode": "// File Returned with Content\nif (Object.keys(items[0].json).includes(\"content\")) {\n  // Get JSON Objects\n  var origWorkflow = JSON.parse(Buffer.from(items[0].json.content, 'base64'));\n  var n8nWorkflow = items[1].json.data;\n  var orderedOriginal = JSON.stringify(origWorkflow, null, 2);\n  \n  // Determine Difference\n  if ( orderedOriginal === n8nWorkflow ) {\n    items[0].json.github_status = \"same\";\n    items[0].json.content_decoded = orderedOriginal;\n  } else {\n    items[0].json.github_status = \"different\";\n    items[0].json.content_decoded = orderedOriginal;\n    items[0].json.n8n_data_stringy = n8nWorkflow;\n  }\n// No File Returned / New Workflow\n} else {\n  // Order JSON Object\n  var n8nWorkflow = (items[1].json.data);\n  \n  // Proper Formatting\n  items[0].json.github_status = \"new\";\n  items[0].json.n8n_data_stringy = n8nWorkflow;\n}\n\n// Return Items\nreturn items;"
-      },
+      "id": "ff2913b0-8056-45aa-8327-d4f05addec91",
       "name": "isDiffOrNew",
-      "type": "n8n-nodes-base.function",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
       "position": [
         740,
         620
       ],
-      "typeVersion": 1,
-      "id": "ff2913b0-8056-45aa-8327-d4f05addec91"
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "language": "javaScript",
+        "jsCode": "const items = $input.all();\n\n// File Returned with Content\nif (Object.keys(items[0].json).includes(\"content\")) {\n  // Get JSON Objects\n  var origWorkflow = JSON.parse(Buffer.from(items[0].json.content, 'base64'));\n  var n8nWorkflow = items[1].json.data;\n  var orderedOriginal = JSON.stringify(origWorkflow, null, 2);\n  \n  // Determine Difference\n  if ( orderedOriginal === n8nWorkflow ) {\n    items[0].json.github_status = \"same\";\n    items[0].json.content_decoded = orderedOriginal;\n  } else {\n    items[0].json.github_status = \"different\";\n    items[0].json.content_decoded = orderedOriginal;\n    items[0].json.n8n_data_stringy = n8nWorkflow;\n  }\n// No File Returned / New Workflow\n} else {\n  // Order JSON Object\n  var n8nWorkflow = (items[1].json.data);\n  \n  // Proper Formatting\n  items[0].json.github_status = \"new\";\n  items[0].json.n8n_data_stringy = n8nWorkflow;\n}\n\n// Return Items\nreturn items;"
+      }
     },
     {
-      "parameters": {
-        "filePath": "={{$json[\"filename\"]}}"
-      },
-      "name": "Read Binary File",
-      "type": "n8n-nodes-base.readBinaryFile",
-      "position": [
-        -60,
-        640
-      ],
-      "typeVersion": 1,
-      "id": "fa7e68f8-b331-4b94-aa0b-583884e1c6c8"
-    },
-    {
-      "parameters": {
-        "setAllData": false,
-        "options": {}
-      },
+      "id": "5f3e785d-b39f-4860-815d-5c2d5e4aa8f4",
       "name": "Move Binary Data",
-      "type": "n8n-nodes-base.moveBinaryData",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
       "position": [
         140,
         640
       ],
-      "typeVersion": 1,
-      "id": "5f3e785d-b39f-4860-815d-5c2d5e4aa8f4"
+      "parameters": {}
     },
     {
+      "id": "16c1ef96-2521-4c9e-8d7a-7c723522a42d",
+      "name": "Globals",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        -1060,
+        640
+      ],
       "parameters": {
         "values": {
           "string": [
@@ -197,78 +181,100 @@
             },
             {
               "name": "repo.path"
-            },
-            {
-              "name": "backupFolder",
-              "value": "/home/node/tmp/backups/"
             }
           ]
         },
         "options": {}
-      },
-      "name": "Globals",
-      "type": "n8n-nodes-base.set",
-      "position": [
-        -1060,
-        640
-      ],
-      "typeVersion": 1,
-      "id": "16c1ef96-2521-4c9e-8d7a-7c723522a42d"
+      }
     },
     {
-      "parameters": {
-        "command": "=n8n export:workflow --backup --output={{$json[\"backupFolder\"]}}"
-      },
-      "name": "Run CLI to export Workflows",
-      "type": "n8n-nodes-base.executeCommand",
+      "id": "1324831b-7380-47ca-adc4-63d8844c1730",
+      "name": "List workflows",
+      "type": "n8n-nodes-base.n8n",
+      "typeVersion": 1,
+      "alwaysOutputData": true,
       "position": [
         -860,
         640
       ],
-      "typeVersion": 1,
-      "id": "1324831b-7380-47ca-adc4-63d8844c1730"
+      "parameters": {
+        "resource": "workflow",
+        "operation": "getAll",
+        "returnAll": true,
+        "filters": {}
+      },
+      "credentials": {
+        "n8nApi": {
+          "id": "JOAfMZBR5A56jHNU",
+          "name": "Workflow backups (read-only)"
+        }
+      }
     },
     {
-      "parameters": {
-        "command": "=ls -1 {{$node[\"Globals\"].json[\"backupFolder\"]}}"
-      },
-      "name": "List filenames",
-      "type": "n8n-nodes-base.executeCommand",
+      "id": "95dd6e12-3a28-438b-acb7-312f887d944a",
+      "name": "Get workflow",
+      "type": "n8n-nodes-base.n8n",
+      "typeVersion": 1,
       "position": [
         -660,
         640
       ],
-      "typeVersion": 1,
-      "id": "95dd6e12-3a28-438b-acb7-312f887d944a"
+      "parameters": {
+        "resource": "workflow",
+        "operation": "get",
+        "workflowId": {
+          "__rl": true,
+          "value": "={{ $json.id }}",
+          "mode": "id"
+        }
+      },
+      "credentials": {
+        "n8nApi": {
+          "id": "JOAfMZBR5A56jHNU",
+          "name": "Workflow backups (read-only)"
+        }
+      }
     },
     {
-      "parameters": {
-        "functionCode": "const newItems = [];\nfor (file of items[0].json.stdout.split('\\n')) {\n  newItems.push({\n    json: {\n      filename: $node[\"Globals\"].json[\"backupFolder\"] + file\n    }\n  });\n}\nreturn newItems;"
-      },
-      "name": "Convert filenames to objects with path",
-      "type": "n8n-nodes-base.function",
+      "id": "9c6d8712-22a1-44d5-ab2c-08445b78cc9a",
+      "name": "Prepare workflow exports",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
       "position": [
         -460,
         640
       ],
-      "typeVersion": 1,
-      "id": "9c6d8712-22a1-44d5-ab2c-08445b78cc9a"
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "language": "javaScript",
+        "jsCode": "const requiredWorkflowIds = [\"1\", \"10\", \"11\", \"12\", \"13\", \"3\", \"4\", \"5\", \"9\", \"ekNtCLOwi49Vywr9\", \"zpYJO8nYkGZzQ0Qh\"];\n// n8n Code node, Run Once for All Items. No filesystem or network access.\nconst items = $input.all();\nif (!items.length) throw new Error('No workflows returned; refusing an empty backup');\nconst returnedIds = new Set(items.map(item => item.json?.id));\nconst missingIds = requiredWorkflowIds.filter(id => !returnedIds.has(id));\nif (missingIds.length) throw new Error(`Missing required workflow IDs: ${missingIds.join(', ')}`);\nconst ids = new Set();\nconst names = new Set();\n// CLI-style workflow definition, not the API envelope or a second published graph.\n// Explicit fields avoid publishing API-only history/authors/project-folder payloads.\nconst fields = [\n  'updatedAt', 'createdAt', 'id', 'name', 'description', 'active', 'isArchived',\n  'nodes', 'connections', 'settings', 'staticData', 'meta', 'nodeGroups', 'pinData',\n  'versionId', 'activeVersionId', 'versionCounter', 'triggerCount', 'sourceWorkflowId',\n  'tags', 'shared',\n];\nreturn items.map(({json: workflow}, index) => {\n  if (typeof workflow.id !== 'string' || !workflow.id ||\n      typeof workflow.name !== 'string' || !workflow.name ||\n      typeof workflow.versionId !== 'string' || !workflow.versionId ||\n      typeof workflow.isArchived !== 'boolean' ||\n      !Object.hasOwn(workflow, 'description') || typeof workflow.versionCounter !== 'number' ||\n      !Array.isArray(workflow.nodes) || !workflow.connections ||\n      typeof workflow.connections !== 'object' || Array.isArray(workflow.connections) ||\n      !Object.hasOwn(workflow, 'settings') || !Object.hasOwn(workflow, 'staticData') ||\n      !Object.hasOwn(workflow, 'pinData')) {\n    throw new Error('Incomplete workflow response; refusing partial backup');\n  }\n  if (ids.has(workflow.id) || names.has(workflow.name)) {\n    throw new Error(`Duplicate workflow ID or filename at workflow ${workflow.id}; refusing overwrite`);\n  }\n  if (/[\\/\\\\\\x00-\\x1f\\x7f]/.test(workflow.name)) {\n    throw new Error(`Workflow ${workflow.id} name is not a safe root filename`);\n  }\n  // GitHub's path encoder rejects lone surrogates; fail before any upload.\n  encodeURIComponent(workflow.name);\n  ids.add(workflow.id);\n  names.add(workflow.name);\n  const exported = {};\n  for (const field of fields) {\n    if (Object.hasOwn(workflow, field)) exported[field] = workflow[field];\n  }\n  return {json: {data: JSON.stringify(exported, null, 2)}, pairedItem: {item: index}};\n});\n"
+      }
     },
     {
-      "parameters": {
-        "batchSize": 1,
-        "options": {}
-      },
+      "id": "e8c31211-2476-47bb-a52d-1752c7bb1cf2",
       "name": "One at a time",
       "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 1,
       "position": [
         -260,
         640
       ],
-      "typeVersion": 1,
-      "id": "e8c31211-2476-47bb-a52d-1752c7bb1cf2"
+      "parameters": {
+        "batchSize": 1,
+        "options": {}
+      }
     },
     {
+      "id": "e4fc1254-e792-47d2-9fe1-26871479bb65",
+      "name": "GitHub",
+      "type": "n8n-nodes-base.github",
+      "typeVersion": 1,
+      "alwaysOutputData": true,
+      "continueOnFail": true,
+      "position": [
+        340,
+        420
+      ],
       "parameters": {
         "authentication": "oAuth2",
         "resource": "file",
@@ -279,41 +285,33 @@
         "asBinaryProperty": false,
         "additionalParameters": {}
       },
-      "name": "GitHub",
-      "type": "n8n-nodes-base.github",
-      "position": [
-        340,
-        420
-      ],
-      "typeVersion": 1,
-      "alwaysOutputData": true,
       "credentials": {
         "githubOAuth2Api": {
           "id": "3",
           "name": "Github account"
         }
       },
-      "continueOnFail": true,
-      "id": "e4fc1254-e792-47d2-9fe1-26871479bb65"
+      "webhookId": "b88f5518-6c54-4603-a9c3-67fdc198e868"
     },
     {
-      "parameters": {
-        "triggerTimes": {
-          "item": [
-            {
-              "hour": 0
-            }
-          ]
-        }
-      },
+      "id": "8450efd7-89d8-4f54-9a08-59bf84e897f1",
       "name": "Every day",
-      "type": "n8n-nodes-base.cron",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.4,
       "position": [
         -1260,
         640
       ],
-      "typeVersion": 1,
-      "id": "8450efd7-89d8-4f54-9a08-59bf84e897f1"
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "52 0 0 * * *"
+            }
+          ]
+        }
+      }
     }
   ],
   "connections": {
@@ -365,7 +363,7 @@
       "main": [
         [
           {
-            "node": "Run CLI to export Workflows",
+            "node": "List workflows",
             "type": "main",
             "index": 0
           }
@@ -420,7 +418,7 @@
       "main": [
         [
           {
-            "node": "Read Binary File",
+            "node": "Move Binary Data",
             "type": "main",
             "index": 0
           }
@@ -452,11 +450,11 @@
         ]
       ]
     },
-    "List filenames": {
+    "Get workflow": {
       "main": [
         [
           {
-            "node": "Convert filenames to objects with path",
+            "node": "Prepare workflow exports",
             "type": "main",
             "index": 0
           }
@@ -479,29 +477,18 @@
         ]
       ]
     },
-    "Read Binary File": {
+    "List workflows": {
       "main": [
         [
           {
-            "node": "Move Binary Data",
+            "node": "Get workflow",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Run CLI to export Workflows": {
-      "main": [
-        [
-          {
-            "node": "List filenames",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Convert filenames to objects with path": {
+    "Prepare workflow exports": {
       "main": [
         [
           {
@@ -527,30 +514,43 @@
   "settings": {
     "errorWorkflow": "12"
   },
-  "staticData": null,
+  "staticData": {
+    "node:Every day": {
+      "recurrenceRules": [
+        null
+      ],
+      "recurrenceRuleSignatures": [
+        null
+      ]
+    }
+  },
   "meta": null,
+  "nodeGroups": [],
   "pinData": null,
-  "versionId": "602f7455-6866-4744-bdec-8f2342211743",
-  "activeVersionId": "602f7455-6866-4744-bdec-8f2342211743",
-  "versionCounter": 19,
+  "versionId": "c139f334-07c6-4ba0-8f5d-c0936065e8c7",
+  "activeVersionId": "c139f334-07c6-4ba0-8f5d-c0936065e8c7",
+  "versionCounter": 20,
   "triggerCount": 1,
+  "sourceWorkflowId": null,
   "tags": [],
   "shared": [
     {
-      "updatedAt": "2022-04-30T23:03:42.905Z",
-      "createdAt": "2022-04-30T23:03:42.905Z",
       "role": "workflow:owner",
       "workflowId": "10",
       "projectId": "rteHPQr0gQHvUBnH",
       "project": {
-        "updatedAt": "2024-06-07T07:01:15.292Z",
-        "createdAt": "2024-06-07T07:01:15.292Z",
         "id": "rteHPQr0gQHvUBnH",
         "name": "Gonçalo Silva <goncalossilva@gmail.com>",
         "type": "personal",
         "icon": null,
-        "description": null
-      }
+        "description": null,
+        "customTelemetryTags": [],
+        "creatorId": "1a4fc95a-7450-4288-aed0-0a115800dd53",
+        "createdAt": "2024-06-07T07:01:15.292Z",
+        "updatedAt": "2024-06-07T07:01:15.292Z"
+      },
+      "createdAt": "2022-04-30T23:03:42.905Z",
+      "updatedAt": "2022-04-30T23:03:42.905Z"
     }
   ]
 }
